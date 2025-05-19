@@ -124,12 +124,25 @@
       <label for="issue">Primary Complaint / Issue</label>
       <textarea id="issue" name="issue" rows="4"></textarea>
 
-      <label for="slot">Preferred Time Slot</label>
-      <select id="slot" name="slot">
-        <option value="10AM - 1PM">10AM – 1PM</option>
-        <option value="2PM - 4PM">2PM – 4PM</option>
-        <option value="5PM - 9PM">5PM – 9PM</option>
-      </select>
+      <label for="day">Preferred Day</label>
+<select id="day" name="day">
+  <option value="Monday">Monday</option>
+  <option value="Tuesday">Tuesday</option>
+  <option value="Wednesday">Wednesday</option>
+  <option value="Thursday">Thursday</option>
+  <option value="Friday">Friday</option>
+  <option value="Saturday">Saturday</option>
+</select>
+
+<label for="slot">Preferred Time Slot</label>
+<select id="slot" name="slot">
+  <option value="10AM - 1PM">10AM – 1PM</option>
+  <option value="2PM - 4PM">2PM – 4PM</option>
+  <option value="5PM - 9PM">5PM – 9PM</option>
+</select>
+
+<label for="exactTime">Preferred Time (Optional)</label>
+<input type="text" id="exactTime" name="exactTime" placeholder="e.g. 6:45 PM, after 7PM, any time etc" />
 
       <label class="consent-label">
         <input type="checkbox" id="consent" />
@@ -143,7 +156,7 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbyGl9Fp-dnosMLQRpr1AezA-TTbt0aQbVTTCd-wQ9hclpjVa-J3obh3BBYWXaqyhYxkRw/exec'; // replace with your actual working exec URL
+    const scriptURL = 'https://script.google.com/macros/library/d/16lPf-Ml2JtiXF_mc9AfbKwsnpPYI4O3By_d4s3-e1DwzHW8ntRrs0Rji/6'; // replace with your actual working exec URL
     const form = document.getElementById('consultForm');
 
     form.addEventListener('submit', function (e) {
