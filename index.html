@@ -15,20 +15,26 @@
     }
     header {
       display: flex;
+      flex-direction: column;
       align-items: center;
       padding: 15px;
       background-color: #ffffff;
       border-bottom: 1px solid #ddd;
-      flex-wrap: wrap;
     }
     header img {
-      height: 80px;
+      height: 100px;
       border-radius: 8px;
-      margin-right: 15px;
+      margin-bottom: 10px;
+    }
+    header h2 {
+      margin: 0;
+      font-size: 24px;
     }
     .tagline {
       font-size: 16px;
       color: #555;
+      margin-top: 4px;
+      text-align: center;
     }
     .container {
       max-width: 100%;
@@ -58,6 +64,18 @@
       border: 1px solid #ccc;
       font-size: 15px;
     }
+    .consent-label {
+      display: flex;
+      align-items: center;
+      font-weight: normal;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+    .consent-label input {
+      margin-right: 10px;
+      width: 18px;
+      height: 18px;
+    }
     button {
       margin-top: 20px;
       width: 100%;
@@ -76,27 +94,13 @@
       margin-top: 20px;
       line-height: 1.6;
     }
-    .consent-label {
-      display: flex;
-      align-items: center;
-      font-weight: normal;
-      font-size: 14px;
-      margin-top: 20px;
-    }
-    .consent-label input {
-      margin-right: 10px;
-      width: 18px;
-      height: 18px;
-    }
   </style>
 </head>
 <body>
-  <header>
+  <header style="text-align: center;">
     <img src="dp.jpg" alt="Dr. Sumesh Subramanian" />
-    <div style="text-align: center;">
-      <h2 style="margin: 0;">Dr. Sumesh Subramanian</h2>
-      <p class="tagline">OrthoCure Bone & Joint Speciality Clinic<br/>Start Healing. Stay Moving.</p>
-    </div>
+    <h2>Dr. Sumesh Subramanian</h2>
+    <p class="tagline">OrthoCure Bone & Joint Speciality Clinic<br/>Start Healing. Stay Moving.</p>
   </header>
 
   <div class="container">
@@ -141,7 +145,6 @@
   <script>
     document.getElementById("consultForm").addEventListener("submit", function(e) {
       e.preventDefault();
-
       const data = {
         name: document.querySelector('input[name="name"]').value,
         age: document.querySelector('input[name="age"]').value,
@@ -150,7 +153,6 @@
         issue: document.querySelector('textarea[name="issue"]').value,
         slot: document.querySelector('select[name="slot"]').value
       };
-
       fetch("YOUR_WEB_APP_URL_HERE", {
         method: "POST",
         body: JSON.stringify(data),
