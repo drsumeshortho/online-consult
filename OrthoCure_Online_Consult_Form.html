@@ -116,5 +116,35 @@
       <p class="disclaimer">This form is secure and compliant with the Telemedicine Practice Guidelines, Govt. of India. No Schedule X or habit-forming drugs will be prescribed.</p>
     </form>
   </div>
+<script>
+  document.getElementById("consultForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const data = {
+      name: document.querySelector('input[name="name"]').value,
+      email: document.querySelector('input[name="email"]').value,
+      age: document.querySelector('input[name="age"]').value,
+      gender: document.querySelector('input[name="gender"]:checked')?.value || '',
+      phone: document.querySelector('input[name="phone"]').value
+    };
+
+    fetch("YOUR_WEB_APP_URL_HERE", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(res => res.json())
+    .then(response => {
+      alert("✅ Your consultation has been submitted successfully!");
+      document.getElementById("consultForm").reset();
+    })
+    .catch(err => {
+      console.error("Submission failed:", err);
+      alert("❌ Something went wrong. Please try again.");
+    });
+  });
+</script>
 </body>
 </html>
