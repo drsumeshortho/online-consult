@@ -104,7 +104,7 @@
 
   <div class="container">
     <h1>Book Your Online Consultation</h1>
-    <form id="consultForm">
+    <form id="consultForm" method="post">
       <label for="name">Full Name</label>
       <input type="text" id="name" name="name" />
 
@@ -170,10 +170,17 @@
 
           form.replaceWith(document.createRange().createContextualFragment(confirmationHTML));
         })
-        .catch(error => {
-          alert("❌ Error submitting form. Please try again.");
-          console.error('Submission Error:', error.message);
-        });
+        .catch(async error => {
+  let errorText;
+  try {
+    errorText = await error.text();
+  } catch {
+    errorText = error.message;
+  }
+  alert("❌ Error submitting form:\n" + errorText);
+  console.error("Submission Error:", errorText);
+});
+
     });
   });
 </script>
