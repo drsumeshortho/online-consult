@@ -142,30 +142,25 @@
     </form>
   </div>
 
- <script>
-  const scriptURL = 'https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbwGYIEa-rB38lkCOQ3BNw4AqiHqW3ALKRuK0jmCwhDHCkPm87KWqU5PXW2SFMsDCcpz/exec/exec';
-  const form = document.forms['submit-to-google-sheet'];
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const scriptURL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+    const form = document.forms['online-consult-form']; // Change name if needed
 
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    fetch(scriptURL, {
-      method: 'POST',
-      body: new FormData(form)
-    })
-    .then(response => {
-      if (response.ok) {
-        window.location.href = 'success.html';
-      } else {
-        console.error('Server error:', response.status);
-        window.location.href = 'error.html';
-      }
-    })
-    .catch(error => {
-      console.error('Script error:', error.message);
-      window.location.href = 'error.html';
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+          alert("Response recorded. We will reach out shortly.");
+          form.reset();
+        })
+        .catch(error => {
+          console.error('Error!', error.message);
+        });
     });
   });
 </script>
+
 
 </body>
 </html>
