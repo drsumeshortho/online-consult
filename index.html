@@ -141,11 +141,15 @@
       <p class="disclaimer">This form is secure and compliant with the Telemedicine Practice Guidelines, Govt. of India. No Schedule X or habit-forming drugs will be prescribed.</p>
     </form>
   </div>
-
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const scriptURL = 'https://script.google.com/macros/s/AKfycbwGYIEa-rB38lkCOQ3BNw4AqiHqW3ALKRuK0jmCwhDHCkPm87KWqU5PXW2SFMsDCcpz/exec';
     const form = document.getElementById('consultForm');
+
+    if (!form) {
+      alert("❌ Error: Form with ID 'consultForm' not found.");
+      return;
+    }
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -155,10 +159,12 @@
           form.reset();
         })
         .catch(error => {
-          console.error('❌ Error!', error.message);
+          alert("❌ Error submitting form. Please try again.");
+          console.error('Error!', error.message);
         });
     });
   });
 </script>
+
 </body>
 </html>
