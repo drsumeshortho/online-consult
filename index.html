@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Online Consultation | OrthoCure Clinic</title>
   <style>
     body {
@@ -16,29 +16,31 @@
     header {
       display: flex;
       align-items: center;
-      padding: 20px;
+      padding: 15px;
       background-color: #ffffff;
       border-bottom: 1px solid #ddd;
+      flex-wrap: wrap;
     }
     header img {
-      height: 100px;
+      height: 80px;
       border-radius: 8px;
-      margin-right: 20px;
+      margin-right: 15px;
     }
     .tagline {
-      font-size: 18px;
+      font-size: 16px;
       color: #555;
     }
     .container {
-      max-width: 600px;
-      margin: 30px auto;
+      max-width: 100%;
+      width: 95%;
+      margin: 20px auto;
       background: #ffffff;
-      padding: 25px;
+      padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.05);
     }
     h1 {
-      font-size: 24px;
+      font-size: 22px;
       margin-bottom: 20px;
       text-align: center;
     }
@@ -46,79 +48,128 @@
       display: block;
       margin-top: 15px;
       font-weight: 600;
+      font-size: 15px;
     }
     input, select, textarea {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 5px;
+      padding: 12px;
+      margin-top: 6px;
+      border-radius: 6px;
       border: 1px solid #ccc;
+      font-size: 15px;
     }
     button {
       margin-top: 20px;
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       background-color: #2c3e50;
       color: white;
       font-weight: bold;
+      font-size: 16px;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
     }
     .disclaimer {
       font-size: 12px;
       color: #777;
       margin-top: 20px;
+      line-height: 1.6;
+    }
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .checkbox-row input[type="checkbox"] {
+      margin-right: 10px;
+      width: 18px;
+      height: 18px;
+    }
+    .checkbox-row label {
+      font-weight: normal;
+      margin: 0;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
-  <header style="text-align: center; padding: 25px 10px; background-color: #fff; border-bottom: 1px solid #ddd;">
-  <div style="max-width: 600px; margin: 0 auto;">
-    <img src="dp.jpg" alt="Dr. Sumesh Subramanian" style="height: 120px; border-radius: 8px; margin-bottom: 10px;">
-    <h2 style="margin: 0; font-size: 28px; font-weight: 700;">Dr. Sumesh Subramanian</h2>
-    <p style="margin: 6px 0 0; font-size: 18px; color: #555;">
-      OrthoCure Bone & Joint Speciality Clinic<br>Start Healing. Stay Moving.
-    </p>
-  </div>
-</header>
-
-
+  <header>
+    <img src="dp.jpg" alt="Dr. Sumesh Subramanian" />
+    <div>
+      <h2 style="margin: 0;">Dr. Sumesh Subramanian</h2>
+      <p class="tagline">OrthoCure Bone & Joint Speciality Clinic<br/>Start Healing. Stay Moving.</p>
+    </div>
+  </header>
 
   <div class="container">
     <h1>Book Your Online Consultation</h1>
-    <form action="https://docs.google.com/forms/d/e/1FAIpQLSchYzlQOZgEB_ndlBqTXhjR9REoNM7Wav80mru-WoTfPCmR4g/formResponse" method="post" target="_blank">
+    <form id="consultForm">
       <label for="name">Full Name</label>
-      <input type="text" id="name" name="entry.123456" required>
+      <input type="text" id="name" name="name" required />
 
       <label for="age">Age</label>
-      <input type="number" id="age" name="entry.654321" required>
+      <input type="number" id="age" name="age" required />
 
       <label for="gender">Gender</label>
-      <select id="gender" name="entry.112233">
+      <select id="gender" name="gender">
         <option value="Male">Male</option>
         <option value="Female">Female</option>
         <option value="Other">Other</option>
       </select>
 
       <label for="phone">WhatsApp Number</label>
-      <input type="tel" id="phone" name="entry.445566" required>
+      <input type="tel" id="phone" name="phone" required />
 
       <label for="issue">Primary Complaint / Issue</label>
-      <textarea id="issue" name="entry.778899" rows="4" required></textarea>
+      <textarea id="issue" name="issue" rows="4" required></textarea>
 
       <label for="slot">Preferred Time Slot</label>
-      <select id="slot" name="entry.991122">
+      <select id="slot" name="slot">
         <option value="10AM - 1PM">10AM – 1PM</option>
         <option value="2PM - 4PM">2PM – 4PM</option>
         <option value="5PM - 9PM">5PM – 9PM</option>
       </select>
 
-      <label><input type="checkbox" required> I agree to the terms of online consultation and consent to share my information.</label>
+      <div class="checkbox-row">
+        <input type="checkbox" id="consent" required />
+        <label for="consent">I agree to the terms of online consultation and consent to share my information.</label>
+      </div>
 
       <button type="submit">Submit Consultation Request</button>
       <p class="disclaimer">This form is secure and compliant with the Telemedicine Practice Guidelines, Govt. of India. No Schedule X or habit-forming drugs will be prescribed.</p>
     </form>
   </div>
+
+  <script>
+    document.getElementById("consultForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const data = {
+        name: document.querySelector('input[name="name"]').value,
+        age: document.querySelector('input[name="age"]').value,
+        gender: document.querySelector('select[name="gender"]').value,
+        phone: document.querySelector('input[name="phone"]').value,
+        issue: document.querySelector('textarea[name="issue"]').value,
+        slot: document.querySelector('select[name="slot"]').value
+      };
+
+      fetch("YOUR_WEB_APP_URL_HERE", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(res => res.json())
+      .then(response => {
+        window.location.href = "thank-you.html";
+      })
+      .catch(err => {
+        console.error("Submission failed:", err);
+        window.location.href = "error.html";
+      });
+    });
+  </script>
 </body>
 </html>
