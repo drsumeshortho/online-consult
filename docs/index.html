@@ -143,7 +143,7 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const scriptURL = 'https://script.google.com/macros/s/1Mo-2e1L9kHAEyMBoPDxu05avVYMs8MT-47R_KjsVVc8/exec';
+    const scriptURL = 'https://script.google.com/macros/s/1Mo-2e1L9kHAEyMBoPDxu05avVYMs8MT-47R_KjsVVc8/exec'; // Replace this with your actual exec URL
     const form = document.getElementById('consultForm');
 
     form.addEventListener('submit', function (e) {
@@ -158,10 +158,10 @@
           const waLink = `https://wa.me/${patientPhone}?text=${encodeURIComponent(message)}`;
 
           const confirmationHTML = `
-            <div style="background:#e8fcef;border-left:5px solid #2ecc71;padding:20px;margin-top:20px;border-radius:8px;">
-              <h2 style="color:#2c3e50;">✅ Thank You!</h2>
-              <p style="font-size:16px;">Your consultation request has been received successfully.</p>
-              <p>We'll review your case and get in touch shortly via WhatsApp or call.</p>
+            <div style="background:#e8fcef;border-left:5px solid #2ecc71;padding:20px;margin-top:20px;border-radius:8px;font-family: 'Segoe UI', sans-serif;">
+              <h2 style="color:#2c3e50;margin-top:0;">✅ Thank You, ${patientName.split(' ')[0]}!</h2>
+              <p style="font-size:16px;line-height:1.5;">Your consultation request has been received successfully.</p>
+              <p style="margin-top:10px;">We'll review your case and contact you via WhatsApp or phone shortly.</p>
               <a href="${waLink}" target="_blank" style="background:#25D366;color:white;padding:10px 16px;border-radius:5px;text-decoration:none;display:inline-block;margin-top:12px;">
                 📲 Message Dr. Sumesh on WhatsApp
               </a>
@@ -177,6 +177,7 @@
     });
   });
 </script>
+
 
 
 </body>
