@@ -142,9 +142,10 @@
 })
 
     .catch(err => {
-      console.error("Submission failed:", err);
-      alert("❌ Something went wrong. Please try again.");
-    });
+  console.error("Submission failed:", err);
+  window.location.href = "error.html";
+});
+
   });
 </script>
 </body>
