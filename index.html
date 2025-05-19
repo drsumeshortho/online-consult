@@ -144,7 +144,25 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const scriptURL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+    const scriptURL = 'https://script.google.com/macros/s/<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const scriptURL = 'https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbwGYIEa-rB38lkCOQ3BNw4AqiHqW3ALKRuK0jmCwhDHCkPm87KWqU5PXW2SFMsDCcpz/exec/exec';
+    const form = document.forms['online-consult-form']; // Change name if needed
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+          alert("Response recorded. We will reach out shortly.");
+          form.reset();
+        })
+        .catch(error => {
+          console.error('Error!', error.message);
+        });
+    });
+  });
+</script>
+/exec';
     const form = document.forms['online-consult-form']; // Change name if needed
 
     form.addEventListener('submit', e => {
