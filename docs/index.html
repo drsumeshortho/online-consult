@@ -143,30 +143,41 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbx0BKoZhO8RATsHNiyTLePddGDAwcvAgX0NS-FkPKwe1D-oVW60EcAlsYSd9XvUUEzciA/exec';
+    const scriptURL = 'https://script.google.com/macros/s/PASTE_YOUR_EXEC_URL/exec';
     const form = document.getElementById('consultForm');
-
-    if (!form) {
-      alert("❌ Error: Form with ID 'consultForm' not found.");
-      return;
-    }
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      console.log("📤 Submitting form...");
+      const formData = new FormData(form);
+      const patientName = formData.get("name");
+      const patientPhone = formData.get("phone");
 
-      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+      fetch(scriptURL, { method: 'POST', body: formData })
         .then(response => {
-          alert("✅ Response recorded! We’ll get in touch shortly.");
-          form.reset();
+          const message = `Hi Dr. Sumesh, I have submitted the consultation form. My name is ${patientName}. Please review my request.`;
+          const waLink = `https://wa.me/${patientPhone}?text=${encodeURIComponent(message)}`;
+
+          const confirmationHTML = `
+            <div style="background:#e8fcef;border-left:5px solid #2ecc71;padding:20px;margin-top:20px;border-radius:8px;">
+              <h2 style="color:#2c3e50;">✅ Thank You!</h2>
+              <p style="font-size:16px;">Your consultation request has been received successfully.</p>
+              <p>We'll review your case and get in touch shortly via WhatsApp or call.</p>
+              <a href="${waLink}" target="_blank" style="background:#25D366;color:white;padding:10px 16px;border-radius:5px;text-decoration:none;display:inline-block;margin-top:12px;">
+                📲 Message Dr. Sumesh on WhatsApp
+              </a>
+            </div>
+          `;
+
+          form.replaceWith(document.createRange().createContextualFragment(confirmationHTML));
         })
         .catch(error => {
           alert("❌ Error submitting form. Please try again.");
-          console.error('Error!', error.message);
+          console.error('Submission Error:', error.message);
         });
     });
   });
 </script>
+
 
 </body>
 </html>
