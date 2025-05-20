@@ -12,7 +12,7 @@
       margin: 0;
       padding: 0;
     }
-    header, .container, .confirmation {
+    header, .container {
       max-width: 700px;
       margin: 30px auto;
       padding: 20px;
@@ -64,12 +64,6 @@
       border-radius: 6px;
       cursor: pointer;
     }
-    .disclaimer {
-      font-size: 13px;
-      color: #777;
-      margin-top: 20px;
-      text-align: center;
-    }
     .confirmation {
       display: none;
       background: #e9fdf2;
@@ -77,6 +71,7 @@
       border-radius: 8px;
       padding: 30px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 20px;
     }
     .confirmation h3 {
       margin-top: 0;
@@ -97,7 +92,7 @@
   </header>
 
   <div class="container">
-    <form id="consultForm" method="post">
+    <form id="consultForm">
       <label for="name">Full Name</label>
       <input type="text" id="name" name="name" required>
 
@@ -143,12 +138,11 @@
       <label for="email">Your Email (for confirmation)</label>
       <input type="email" id="email" name="email" required>
 
-      <label class="consent-label">
+      <label>
         <input type="checkbox" required> I agree to the terms of online consultation and consent to share my information.
       </label>
 
       <button type="submit">Submit Consultation Request</button>
-      <p class="disclaimer">This form complies with the Telemedicine Practice Guidelines, Govt. of India.</p>
     </form>
 
     <div id="confirmationMessage" class="confirmation">
@@ -160,44 +154,29 @@
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const form = document.getElementById("consultForm");
-      const confirmation = document.getElementById("confirmationMessage");
-      const scriptURL = "https://script.google.com/macros/s/AKfycbxEHp4Cs3mgU0Ci9zWOmCJttMCNfb7YRS--6OAdGHAVOlppkVsfY3OLXYHG_enOvVs/exec";
+    const form = document.getElementById("consultForm");
+    const confirmation = document.getElementById("confirmationMessage");
 
-      form.addEventListener('submit', function (e) {
-  e.preventDefault();
-  const formData = new FormData(form);
-  const patientName = formData.get("name") || "Patient";
-  const patientPhone = formData.get("phone") || "";
-  const preferredDay = formData.get("day") || "";
-  const slot = formData.get("slot") || "";
-  const exactTime = formData.get("exactTime") || "";
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxEHp4Cs3mgU0Ci9zWOmCJttMCNfb7YRS--6OAdGHAVOlppkVsfY3OLXYHG_enOvVs/exec";
 
-  fetch(scriptURL, { method: 'POST', body: formData })
-    .then(response => {
-      const message = `Hi ${patientName}, your online consultation request for ${preferredDay} ${slot} ${exactTime} has been received. Please confirm and pay ₹400 via UPI to drsumesh.ortho@axl to finalize your appointment.`;
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const formData = new FormData(form);
 
-      const confirmationHTML = `
-        <div style="background:#e8fcef;border-left:5px solid #2ecc71;padding:20px;margin-top:20px;border-radius:8px;font-family: 'Segoe UI', sans-serif;">
-          <h2 style="color:#2c3e50;margin-top:0;">✅ Thank You, ${patientName.split(' ')[0]}!</h2>
-          <p style="font-size:16px;line-height:1.5;">Your consultation request has been received successfully.</p>
-          <p>We’ll review your request and confirm your appointment via WhatsApp shortly.</p>
-          <button onclick="navigator.clipboard.writeText(document.getElementById('whatsappMsg').textContent);"
-            style="background-color:#25D366;color:white;border:none;padding:10px 16px;border-radius:6px;font-size:16px;cursor:pointer;margin-top:12px;">
-            📋 Copy WhatsApp Message
-          </button>
-          <p id="whatsappMsg" style="display:none;">${message}</p>
-        </div>
-      `;
-      form.replaceWith(document.createRange().createContextualFragment(confirmationHTML));
-    })
-    .catch(error => {
-      alert("❌ Error submitting form. Please try again.");
-      console.error("Submission Error:", error.message);
+      fetch(scriptURL, { method: "POST", body: formData })
+        .then(response => {
+          if (response.ok) {
+            form.style.display = "none";
+            confirmation.style.display = "block";
+          } else {
+            alert("Something went wrong. Please try again later.");
+          }
+        })
+        .catch(error => {
+          alert("❌ Submission failed.");
+          console.error("Error!", error.message);
+        });
     });
-});
-
   </script>
 </body>
 </html>
