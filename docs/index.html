@@ -54,11 +54,6 @@
       border: 1px solid #ccc;
       border-radius: 8px;
       background: #fdfdfd;
-      transition: border-color 0.3s ease;
-    }
-    input:focus, select:focus, textarea:focus {
-      border-color: #2c3e50;
-      outline: none;
     }
     .optional {
       font-weight: 400;
@@ -86,10 +81,6 @@
       background-color: #2c3e50;
       color: #fff;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #1a2733;
     }
     .disclaimer {
       font-size: 12px;
@@ -136,6 +127,17 @@
       <label for="issue">Primary Complaint / Issue</label>
       <textarea id="issue" name="issue" rows="4" required></textarea>
 
+      <label for="day">Preferred Day</label>
+      <select id="day" name="day" required>
+        <option value="">--Select Day--</option>
+        <option value="Monday">Monday</option>
+        <option value="Tuesday">Tuesday</option>
+        <option value="Wednesday">Wednesday</option>
+        <option value="Thursday">Thursday</option>
+        <option value="Friday">Friday</option>
+        <option value="Saturday">Saturday</option>
+      </select>
+
       <label for="slot">Preferred Time Slot</label>
       <select id="slot" name="slot" required>
         <option value="">--Select Slot--</option>
@@ -163,5 +165,23 @@
       <p class="disclaimer">This form is compliant with the Telemedicine Practice Guidelines, Govt. of India.<br>No Schedule X or habit-forming drugs will be prescribed.</p>
     </form>
   </div>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzvX1uhhtGORGXgI_NodEAyGJuCq8SFeA1kBt4DLRTktD-acVzAmy_t-CQyqELL5NapMQ/exec'; // Replace this with your actual deployed Web App URL (ends in /exec)
+    const form = document.getElementById('consultForm');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+        .then(response => {
+          alert("✅ Submitted! You will receive a WhatsApp confirmation shortly.");
+          form.reset();
+        })
+        .catch(error => {
+          alert("❌ Submission failed. Please try again.");
+          console.error("Error!", error.message);
+        });
+    });
+  </script>
 </body>
 </html>
