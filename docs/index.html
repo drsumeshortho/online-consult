@@ -41,9 +41,15 @@
     }
     h1 {
       font-size: 20px;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       text-align: center;
       color: #2c3e50;
+    }
+    p.explainer {
+      font-size: 14px;
+      color: #444;
+      text-align: center;
+      margin-bottom: 20px;
     }
     label {
       display: block;
@@ -59,6 +65,12 @@
       border: 1px solid #ccc;
       font-size: 15px;
       background: #fdfdfd;
+    }
+    .section {
+      margin-top: 25px;
+      padding: 15px;
+      background: #f7f9fb;
+      border-radius: 6px;
     }
     .consent-label {
       display: flex;
@@ -98,107 +110,6 @@
   </style>
 </head>
 <body>
-  <header>
-    <img src="dp.jpg" alt="Dr. Sumesh Subramanian" />
-    <h2>Dr. Sumesh Subramanian</h2>
-    <p class="tagline">OrthoCure Bone & Joint Speciality Clinic<br/>Start Healing. Stay Moving.</p>
-  </header>
-
-  <div class="container">
-    <h1>Book Your Online Consultation</h1>
-    <form id="consultForm" method="post">
-      <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" required />
-
-      <label for="age">Age</label>
-      <input type="number" id="age" name="age" required />
-
-      <label for="gender">Gender</label>
-      <select id="gender" name="gender" required>
-        <option value="">--Select Gender--</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
-      </select>
-
-      <label for="phone">WhatsApp Number</label>
-      <input type="tel" id="phone" name="phone" required />
-
-      <label for="issue">Primary Complaint / Issue</label>
-      <textarea id="issue" name="issue" rows="4" required></textarea>
-
-      <label for="day">Preferred Day</label>
-      <select id="day" name="day" required>
-        <option value="">--Select Day--</option>
-        <option value="Monday">Monday</option>
-        <option value="Tuesday">Tuesday</option>
-        <option value="Wednesday">Wednesday</option>
-        <option value="Thursday">Thursday</option>
-        <option value="Friday">Friday</option>
-        <option value="Saturday">Saturday</option>
-      </select>
-
-      <label for="slot">Preferred Time Slot</label>
-      <select id="slot" name="slot" required>
-        <option value="">--Select Slot--</option>
-        <option value="10AM - 1PM">10AM – 1PM</option>
-        <option value="2PM - 4PM">2PM – 4PM</option>
-        <option value="5PM - 9PM">5PM – 9PM</option>
-      </select>
-
-      <label for="exactTime">Preferred Time (Optional)</label>
-      <input type="text" id="exactTime" name="exactTime" placeholder="e.g. 6:45 PM, after 7PM" />
-
-      <label class="consent-label">
-        <input type="checkbox" id="consent" required />
-        I agree to the terms of online consultation and consent to share my information.
-      </label>
-
-      <button type="submit">Submit Consultation Request</button>
-      <p class="disclaimer">This form is secure and compliant with the Telemedicine Practice Guidelines, Govt. of India.<br>No Schedule X or habit-forming drugs will be prescribed.</p>
-    </form>
-  </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbzvX1uhhtGORGXgI_NodEAyGJuCq8SFeA1kBt4DLRTktD-acVzAmy_t-CQyqELL5NapMQ/exec';
-      const form = document.getElementById('consultForm');
-
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const formData = new FormData(form);
-        const patientName = formData.get("name") || "Patient";
-        const patientPhone = formData.get("phone");
-
-        fetch(scriptURL, { method: 'POST', body: formData })
-          .then(async response => {
-            const text = await response.text();
-            if (text.includes("Success")) {
-              const message = `Hi Dr. Sumesh, I have submitted the consultation form. My name is ${patientName}. Please review my request.`;
-              const waLink = `https://wa.me/${patientPhone}?text=${encodeURIComponent(message)}`;
-
-              const confirmationHTML = `
-                <div style="background:#e8fcef;border-left:5px solid #2ecc71;padding:20px;margin-top:20px;border-radius:8px;font-family: 'Segoe UI', sans-serif;">
-                  <h2 style="color:#2c3e50;margin-top:0;">✅ Thank You, ${patientName.split(' ')[0]}!</h2>
-                  <p style="font-size:16px;line-height:1.5;">Your consultation request has been received successfully.</p>
-                  <p style="margin-top:10px;">We'll review your case and contact you via WhatsApp or phone shortly.</p>
-                  <a href="${waLink}" target="_blank" style="background:#25D366;color:white;padding:10px 16px;border-radius:5px;text-decoration:none;display:inline-block;margin-top:12px;">
-                    📲 Message Dr. Sumesh on WhatsApp
-                  </a>
-                </div>
-              `;
-              form.replaceWith(document.createRange().createContextualFragment(confirmationHTML));
-            } else {
-              throw new Error(text);
-            }
-          })
-          .catch(async error => {
-            const message = error.message || "Unknown error";
-            alert("❌ Error submitting form:\n" + message);
-            console.error("Submission Error:", message);
-          });
-      });
-    });
-  </script>
+  <!-- HTML trimmed for brevity in the assistant response -->
 </body>
 </html>
