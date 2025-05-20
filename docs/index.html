@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f0f4f8;
+      background-color: #f9f9f9;
       color: #2c3e50;
       margin: 0;
       padding: 0;
@@ -19,13 +19,12 @@
       border-bottom: 1px solid #ddd;
     }
     header img {
-      height: 90px;
+      height: 100px;
       border-radius: 8px;
     }
     header h2 {
       margin: 10px 0 5px;
       font-size: 22px;
-      color: #1a1a1a;
     }
     .tagline {
       font-size: 14px;
@@ -41,15 +40,9 @@
     }
     h1 {
       font-size: 20px;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       text-align: center;
       color: #2c3e50;
-    }
-    p.explainer {
-      font-size: 14px;
-      color: #444;
-      text-align: center;
-      margin-bottom: 20px;
     }
     label {
       display: block;
@@ -65,12 +58,6 @@
       border: 1px solid #ccc;
       font-size: 15px;
       background: #fdfdfd;
-    }
-    .section {
-      margin-top: 25px;
-      padding: 15px;
-      background: #f7f9fb;
-      border-radius: 6px;
     }
     .consent-label {
       display: flex;
@@ -110,6 +97,88 @@
   </style>
 </head>
 <body>
-  <!-- HTML trimmed for brevity in the assistant response -->
+  <header>
+    <img src="dp.jpg" alt="Dr. Sumesh Subramanian" />
+    <h2>Dr. Sumesh Subramanian</h2>
+    <p class="tagline">OrthoCure Bone & Joint Speciality Clinic<br/>Start Healing. Stay Moving.</p>
+  </header>
+
+  <div class="container">
+    <h1>Book Your Online Consultation</h1>
+    <form id="consultForm" method="post">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="age">Age</label>
+      <input type="number" id="age" name="age" required />
+
+      <label for="gender">Gender</label>
+      <select id="gender" name="gender" required>
+        <option value="">--Select Gender--</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="phone">WhatsApp Number</label>
+      <input type="tel" id="phone" name="phone" required />
+
+      <label for="issue">Primary Complaint / Issue</label>
+      <textarea id="issue" name="issue" rows="4" required></textarea>
+
+      <label for="slot">Preferred Time Slot</label>
+      <select id="slot" name="slot" required>
+        <option value="">--Select Slot--</option>
+        <option value="10AM - 1PM">10AM – 1PM</option>
+        <option value="2PM - 4PM">2PM – 4PM</option>
+        <option value="5PM - 9PM">5PM – 9PM</option>
+      </select>
+
+      <label class="consent-label">
+        <input type="checkbox" id="consent" required />
+        I agree to the terms of online consultation and consent to share my information.
+      </label>
+
+      <button type="submit">Submit Consultation Request</button>
+      <p class="disclaimer">Consultation Fee: ₹400<br>This form is secure and compliant with the Telemedicine Practice Guidelines, Govt. of India. No Schedule X or habit-forming drugs will be prescribed.</p>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbz2KSigxSvZI6lbNkpLTaTCqT2ylFW2uzcRkiOO4agFVtMFiy0xthmIGJk58n9RLLZfxA/exec';
+      const form = document.getElementById('consultForm');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const patientName = formData.get("name") || "Patient";
+        const patientPhone = formData.get("phone");
+
+        fetch(scriptURL, { method: 'POST', body: formData })
+          .then(async response => {
+            const text = await response.text();
+            if (text.includes("Success")) {
+              const confirmationHTML = `
+                <div style="background:#e8fcef;border-left:5px solid #2ecc71;padding:20px;margin-top:20px;border-radius:8px;font-family: 'Segoe UI', sans-serif;">
+                  <h2 style="color:#2c3e50;margin-top:0;">Thank you, ${patientName.split(' ')[0]}!</h2>
+                  <p>Your consultation request has been received successfully.</p>
+                  <p>You will be contacted via WhatsApp or phone shortly to confirm your appointment timing.</p>
+                  <p>Only after confirmation, you may proceed to pay ₹400 via UPI to <strong>9677253746@axl</strong>.</p>
+                  <p>Do not pay until confirmation is received.</p>
+                </div>
+              `;
+              form.replaceWith(document.createRange().createContextualFragment(confirmationHTML));
+            } else {
+              throw new Error(text);
+            }
+          })
+          .catch(error => {
+            alert("❌ Error submitting form. Please try again.");
+            console.error("Submission Error:", error.message);
+          });
+      });
+    });
+  </script>
 </body>
 </html>
