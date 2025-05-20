@@ -7,105 +7,96 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f2f6fc;
+      background-color: #f9f9f9;
+      color: #2c3e50;
       margin: 0;
       padding: 0;
-      color: #2c3e50;
+    }
+    header, .container, .confirmation {
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 20px;
     }
     header {
+      background-color: #fff;
       text-align: center;
-      background-color: #ffffff;
-      padding: 25px 10px;
       border-bottom: 1px solid #ddd;
     }
     header img {
       height: 90px;
-      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    header h2 {
+      margin: 5px 0 0;
     }
     .tagline {
       font-size: 14px;
-      color: #555;
-      margin-top: 8px;
+      color: #777;
     }
-    .container {
-      max-width: 640px;
-      margin: 40px auto;
-      background: #ffffff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-    }
-    h1 {
-      font-size: 24px;
-      text-align: center;
-      margin-bottom: 25px;
+    form {
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
     }
     label {
+      font-weight: 600;
       display: block;
       margin-top: 20px;
-      font-weight: 600;
-      font-size: 15px;
     }
     input, select, textarea {
       width: 100%;
-      padding: 12px;
+      padding: 10px;
       margin-top: 6px;
-      font-size: 15px;
       border: 1px solid #ccc;
-      border-radius: 8px;
-      background: #fdfdfd;
-    }
-    .optional {
-      font-weight: 400;
-      font-size: 13px;
-      color: #777;
-      margin-top: 2px;
-    }
-    .consent-label {
-      display: flex;
-      align-items: center;
+      border-radius: 6px;
       font-size: 14px;
-      margin-top: 20px;
-    }
-    .consent-label input {
-      margin-right: 10px;
     }
     button {
       margin-top: 25px;
       width: 100%;
-      padding: 14px;
-      font-size: 16px;
-      font-weight: 600;
-      border: none;
-      border-radius: 8px;
       background-color: #2c3e50;
-      color: #fff;
+      color: white;
+      padding: 14px;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 6px;
       cursor: pointer;
     }
     .disclaimer {
-      font-size: 12px;
-      color: #888;
+      font-size: 13px;
+      color: #777;
       margin-top: 20px;
       text-align: center;
     }
-    .highlight {
-      background-color: #f0f7ff;
-      padding: 16px;
-      border-left: 4px solid #3498db;
-      border-radius: 6px;
-      margin-top: 30px;
-      font-size: 14px;
+    .confirmation {
+      display: none;
+      background: #e9fdf2;
+      border-left: 5px solid #2ecc71;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .confirmation h3 {
+      margin-top: 0;
+      color: #2c3e50;
+    }
+    .confirmation p {
+      color: #333;
+      font-size: 15px;
+      line-height: 1.6;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="dp.jpg" alt="Dr. Sumesh Subramanian">
+    <img src="dp.jpg" alt="Dr. Sumesh Subramanian" />
     <h2>Dr. Sumesh Subramanian</h2>
     <p class="tagline">OrthoCure Bone & Joint Speciality Clinic<br>Start Healing. Stay Moving.</p>
   </header>
+
   <div class="container">
-    <h1>Book Your Online Consultation</h1>
     <form id="consultForm" method="post">
       <label for="name">Full Name</label>
       <input type="text" id="name" name="name" required>
@@ -125,7 +116,7 @@
       <input type="tel" id="phone" name="phone" required>
 
       <label for="issue">Primary Complaint / Issue</label>
-      <textarea id="issue" name="issue" rows="4" required></textarea>
+      <textarea id="issue" name="issue" required></textarea>
 
       <label for="day">Preferred Day</label>
       <select id="day" name="day" required>
@@ -147,40 +138,49 @@
       </select>
 
       <label for="exactTime">Preferred Time (Optional)</label>
-      <input type="text" id="exactTime" name="exactTime" placeholder="e.g. after 7PM, 6:45 PM">
-      <div class="optional">This helps Dr. Sumesh plan your consultation timing.</div>
+      <input type="text" id="exactTime" name="exactTime" placeholder="e.g. after 7PM">
+
+      <label for="email">Your Email (for confirmation)</label>
+      <input type="email" id="email" name="email" required>
 
       <label class="consent-label">
-        <input type="checkbox" required>
-        I agree to the terms of online consultation and consent to share my information.
+        <input type="checkbox" required> I agree to the terms of online consultation and consent to share my information.
       </label>
 
       <button type="submit">Submit Consultation Request</button>
-
-      <div class="highlight">
-        Once you submit, we will confirm your appointment via WhatsApp.<br>
-        Please wait for confirmation before proceeding with payment.
-      </div>
-
-      <p class="disclaimer">This form is compliant with the Telemedicine Practice Guidelines, Govt. of India.<br>No Schedule X or habit-forming drugs will be prescribed.</p>
+      <p class="disclaimer">This form complies with the Telemedicine Practice Guidelines, Govt. of India.</p>
     </form>
+
+    <div id="confirmationMessage" class="confirmation">
+      <h3>✅ Thank You!</h3>
+      <p>Your consultation request has been received. Dr. Sumesh will confirm your time via WhatsApp shortly.</p>
+      <p>Once confirmed, you will receive payment details. Please wait for confirmation before making the ₹400 payment via UPI.</p>
+      <p class="disclaimer">OrthoCure Bone & Joint Speciality Clinic</p>
+    </div>
   </div>
 
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzvX1uhhtGORGXgI_NodEAyGJuCq8SFeA1kBt4DLRTktD-acVzAmy_t-CQyqELL5NapMQ/exec'; // Replace this with your actual deployed Web App URL (ends in /exec)
-    const form = document.getElementById('consultForm');
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("consultForm");
+      const confirmation = document.getElementById("confirmationMessage");
+      const scriptURL = "https://script.google.com/macros/s/YOUR_DEPLOYED_SCRIPT_URL/exec";
 
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-        .then(response => {
-          alert("✅ Submitted! You will receive a WhatsApp confirmation shortly.");
-          form.reset();
-        })
-        .catch(error => {
-          alert("❌ Submission failed. Please try again.");
-          console.error("Error!", error.message);
-        });
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+          .then(response => {
+            if (response.ok) {
+              form.style.display = "none";
+              confirmation.style.display = "block";
+            } else {
+              alert("Something went wrong. Please try again.");
+            }
+          })
+          .catch(error => {
+            console.error("Error!", error.message);
+            alert("There was an error submitting your request.");
+          });
+      });
     });
   </script>
 </body>
