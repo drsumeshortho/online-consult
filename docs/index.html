@@ -165,23 +165,39 @@
       const confirmation = document.getElementById("confirmationMessage");
       const scriptURL = "https://script.google.com/macros/s/AKfycbzmGhYVoljFHyfuam2d4TkoCUSvF6LQ2X9qYtTPnRus7d61KUANKfHehOoRR9f0KUPHPg/exec";
 
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-          .then(response => {
-            if (response.ok) {
-              form.style.display = "none";
-              confirmation.style.display = "block";
-            } else {
-              alert("Something went wrong. Please try again.");
-            }
-          })
-          .catch(error => {
-            console.error("Error!", error.message);
-            alert("There was an error submitting your request.");
-          });
-      });
+      form.addEventListener('submit', function (e) {
+  e.preventDefault();
+  const formData = new FormData(form);
+  const patientName = formData.get("name") || "Patient";
+  const patientPhone = formData.get("phone") || "";
+  const preferredDay = formData.get("day") || "";
+  const slot = formData.get("slot") || "";
+  const exactTime = formData.get("exactTime") || "";
+
+  fetch(scriptURL, { method: 'POST', body: formData })
+    .then(response => {
+      const message = `Hi ${patientName}, your online consultation request for ${preferredDay} ${slot} ${exactTime} has been received. Please confirm and pay ₹400 via UPI to drsumesh.ortho@axl to finalize your appointment.`;
+
+      const confirmationHTML = `
+        <div style="background:#e8fcef;border-left:5px solid #2ecc71;padding:20px;margin-top:20px;border-radius:8px;font-family: 'Segoe UI', sans-serif;">
+          <h2 style="color:#2c3e50;margin-top:0;">✅ Thank You, ${patientName.split(' ')[0]}!</h2>
+          <p style="font-size:16px;line-height:1.5;">Your consultation request has been received successfully.</p>
+          <p>We’ll review your request and confirm your appointment via WhatsApp shortly.</p>
+          <button onclick="navigator.clipboard.writeText(document.getElementById('whatsappMsg').textContent);"
+            style="background-color:#25D366;color:white;border:none;padding:10px 16px;border-radius:6px;font-size:16px;cursor:pointer;margin-top:12px;">
+            📋 Copy WhatsApp Message
+          </button>
+          <p id="whatsappMsg" style="display:none;">${message}</p>
+        </div>
+      `;
+      form.replaceWith(document.createRange().createContextualFragment(confirmationHTML));
+    })
+    .catch(error => {
+      alert("❌ Error submitting form. Please try again.");
+      console.error("Submission Error:", error.message);
     });
+});
+
   </script>
 </body>
 </html>
