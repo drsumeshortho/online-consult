@@ -7,203 +7,235 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f9f9f9;
+      background-color: #f7fafa;
       color: #2c3e50;
       margin: 0;
       padding: 0;
     }
+
     header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 15px;
-      background-color: #ffffff;
-      border-bottom: 1px solid #ddd;
       text-align: center;
+      background-color: #ffffff;
+      padding: 20px 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
-    header img {
-      height: 100px;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
+
     header h2 {
       margin: 0;
       font-size: 24px;
-    }
-    .tagline {
-      font-size: 16px;
-      color: #555;
-      margin-top: 4px;
-    }
-    .container {
-      max-width: 100%;
-      width: 95%;
-      margin: 20px auto;
-      background: #ffffff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-    }
-    h1 {
-      font-size: 22px;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: 600;
-      font-size: 15px;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 12px;
-      margin-top: 6px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 15px;
-    }
-    .consent-label {
-      display: flex;
-      align-items: center;
-      font-weight: normal;
-      font-size: 14px;
-      margin-top: 20px;
-    }
-    .consent-label input {
-      margin-right: 10px;
-      width: 18px;
-      height: 18px;
-    }
-    button {
-      margin-top: 20px;
-      width: 100%;
-      padding: 14px;
-      background-color: #2c3e50;
-      color: white;
-      font-weight: bold;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .disclaimer {
-      font-size: 12px;
-      color: #777;
-      margin-top: 20px;
-      line-height: 1.6;
+      color: #00796B;
     }
 
-    /* Success Modal */
-    #successModal {
+    header p {
+      margin: 5px 0;
+      font-size: 16px;
+      color: #555;
+    }
+
+    header h3 {
+      margin-top: 10px;
+      font-size: 20px;
+      color: #00796B;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #00796B;
+      color: white;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #005a4f;
+    }
+
+    .preview-box {
+      display: none;
+      margin: 20px auto;
+      max-width: 500px;
+      padding: 20px;
+      border: 1px dashed #00796B;
+      border-radius: 8px;
+      background: #e0f2f1;
+    }
+
+    .modal {
+      display: none;
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #f8fff8;
-      border-left: 5px solid #2ecc71;
-      padding: 24px 28px;
-      max-width: 420px;
-      width: 90%;
-      z-index: 9999;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      font-family: 'Segoe UI', sans-serif;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      form, .preview-box {
+        margin: 10px;
+      }
+    }
+
+    #otherTimeInput {
       display: none;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="dp.jpg" alt="Dr. Sumesh Subramanian" />
     <h2>Dr. Sumesh Subramanian</h2>
-    <p class="tagline">OrthoCure Bone & Joint Speciality Clinic<br/>Start Healing. Stay Moving.</p>
+    <p>MBBS, MS (Orthopaedics)</p>
+    <h3>Online Consultation – OrthoCure Clinic</h3>
   </header>
 
-  <div class="container">
-    <h1>Book Your Online Consultation</h1>
-    <form id="consultForm" method="post" novalidate>
-      <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" required />
+  <form id="consultForm">
+    <label for="name">Name</label>
+    <input type="text" id="name" required />
 
-      <label for="age">Age</label>
-      <input type="number" id="age" name="age" required />
+    <label for="age">Age</label>
+    <input type="number" id="age" required />
 
-      <label for="gender">Gender</label>
-      <select id="gender" name="gender" required>
-        <option value="" disabled selected>Select Gender</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
-      </select>
+    <label for="gender">Gender</label>
+    <select id="gender" required>
+      <option value="">Select</option>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+    </select>
 
-      <label for="phone">WhatsApp Number</label>
-      <input type="tel" id="phone" name="phone" required />
+    <label for="problem">Problem / Complaint</label>
+    <textarea id="problem" rows="3" required></textarea>
 
-      <label for="issue">Primary Complaint / Issue</label>
-      <textarea id="issue" name="issue" rows="4" required></textarea>
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" required />
 
-      <label for="slot">Preferred Time Slot</label>
-      <select id="slot" name="slot" required>
-        <option value="" disabled selected>Select Time Slot</option>
-        <option value="10AM - 1PM">10AM – 1PM</option>
-        <option value="2PM - 4PM">2PM – 4PM</option>
-        <option value="5PM - 9PM">5PM – 9PM</option>
-      </select>
+    <label for="preferred">Preferred Time</label>
+    <select id="preferred" required onchange="toggleOtherTime(this)">
+      <option value="">Select a time slot</option>
+      <option>10:00 AM – 1:00 PM</option>
+      <option>2:00 PM – 4:00 PM</option>
+      <option>5:00 PM – 9:00 PM</option>
+      <option value="Other">Other</option>
+    </select>
 
-      <label class="consent-label">
-        <input type="checkbox" id="consent" required />
-        I agree to the terms of online consultation and consent to share my information.
-      </label>
+    <input type="text" id="otherTimeInput" placeholder="Enter preferred time" />
 
-      <button type="submit">Submit Consultation Request</button>
-      <p class="disclaimer">This form is secure and compliant with the Telemedicine Practice Guidelines, Govt. of India. No Schedule X or habit-forming drugs will be prescribed.</p>
-    </form>
+    <button type="button" onclick="previewForm()">Preview Before Submit</button>
+  </form>
+
+  <div class="preview-box" id="previewBox">
+    <h3>Please review your details</h3>
+    <div id="previewContent"></div>
+    <button onclick="submitForm()">Confirm & Submit</button>
   </div>
 
-  <!-- Modal -->
-  <div id="successModal">
-    <div style="display: flex; align-items: center; margin-bottom: 16px;">
-      <div style="font-size: 26px; color: #2ecc71; margin-right: 12px;">✅</div>
-      <div style="font-size: 18px; font-weight: 600; color: #2c3e50;">
-        Consultation Request Submitted
-      </div>
+  <div id="successModal" class="modal">
+    <div class="modal-content">
+      <p>Thank you! Your consultation request has been submitted. We'll contact you on WhatsApp shortly.</p>
+      <button onclick="closeModal()">OK</button>
     </div>
-    <p style="font-size: 15px; color: #444; margin-top: 0;">
-      Thank you for reaching out to <strong>Dr. Sumesh Subramanian</strong> at
-      <strong>OrthoCure Bone & Joint Speciality Clinic</strong>.
-    </p>
-    <p style="font-size: 14px; color: #555;">
-      You will receive a confirmation via WhatsApp shortly.
-      Please wait for timing approval before making any payment.
-    </p>
-    <p style="font-size: 12px; color: #888; text-align: right; margin-top: 12px;">
-      — OrthoCure Team
-    </p>
   </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbzvX1uhhtGORGXgI_NodEAyGJuCq8SFeA1kBt4DLRTktD-acVzAmy_t-CQyqELL5NapMQ/exec';
-      const form = document.getElementById('consultForm');
+    function toggleOtherTime(select) {
+      const otherInput = document.getElementById("otherTimeInput");
+      if (select.value === "Other") {
+        otherInput.style.display = "block";
+        otherInput.required = true;
+      } else {
+        otherInput.style.display = "none";
+        otherInput.required = false;
+      }
+    }
 
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-          .then(response => {
-            if (response.ok) {
-              document.getElementById("successModal").style.display = "block";
-              form.reset();
-            } else {
-              alert("❌ Error submitting form. Please try again.");
-            }
-          })
-          .catch(error => {
-            alert("❌ Submission failed. Please try again.");
-            console.error('Error!', error.message);
-          });
-      });
-    });
+    function previewForm() {
+      const name = document.getElementById("name").value;
+      const age = document.getElementById("age").value;
+      const gender = document.getElementById("gender").value;
+      const problem = document.getElementById("problem").value;
+      const phone = document.getElementById("phone").value;
+      const preferredDropdown = document.getElementById("preferred").value;
+      const otherTime = document.getElementById("otherTimeInput").value;
+      const preferred = preferredDropdown === "Other" ? otherTime : preferredDropdown;
+
+      if (!name || !age || !gender || !problem || !phone || !preferred) {
+        alert("Please fill out all fields before previewing.");
+        return;
+      }
+
+      document.getElementById("previewContent").innerHTML = `
+        <strong>Name:</strong> ${name}<br/>
+        <strong>Age:</strong> ${age}<br/>
+        <strong>Gender:</strong> ${gender}<br/>
+        <strong>Problem:</strong> ${problem}<br/>
+        <strong>Phone:</strong> ${phone}<br/>
+        <strong>Preferred Time:</strong> ${preferred}<br/>
+      `;
+
+      document.getElementById("previewBox").style.display = "block";
+    }
+
+    function submitForm() {
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbxEHp4Cs3mgU0Ci9zWOmCJttMCNfb7YRS--6OAdGHAVOlppkVsfY3OLXYHG_enOvVs/exec';
+      const formData = new FormData();
+
+      const preferredDropdown = document.getElementById("preferred").value;
+      const otherTime = document.getElementById("otherTimeInput").value;
+      const preferred = preferredDropdown === "Other" ? otherTime : preferredDropdown;
+
+      formData.append("Name", document.getElementById("name").value);
+      formData.append("Age", document.getElementById("age").value);
+      formData.append("Gender", document.getElementById("gender").value);
+      formData.append("Problem", document.getElementById("problem").value);
+      formData.append("Phone", document.getElementById("phone").value);
+      formData.append("PreferredTime", preferred);
+
+      fetch(scriptURL, { method: 'POST', body: formData })
+        .then(() => {
+          document.getElementById("consultForm").reset();
+          document.getElementById("previewBox").style.display = "none";
+          document.getElementById("successModal").style.display = "block";
+        })
+        .catch(error => console.error('Error!', error.message));
+    }
+
+    function closeModal() {
+      document.getElementById("successModal").style.display = "none";
+    }
   </script>
 </body>
 </html>
