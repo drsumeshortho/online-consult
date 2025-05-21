@@ -12,6 +12,7 @@
       margin: 0;
       padding: 0;
     }
+
     header {
       display: flex;
       flex-direction: column;
@@ -19,4 +20,211 @@
       padding: 15px;
       background-color: #ffffff;
       border-bottom: 1px solid #ddd;
-      text
+      text-align: center;
+    }
+
+    header img {
+      height: 100px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    header h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .tagline {
+      font-size: 16px;
+      color: #555;
+      margin-top: 4px;
+    }
+
+    .container {
+      max-width: 100%;
+      width: 95%;
+      margin: 20px auto;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    .consent-label {
+      display: flex;
+      align-items: center;
+      font-weight: normal;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+
+    .consent-label input {
+      margin-right: 10px;
+      width: 18px;
+      height: 18px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 14px;
+      background-color: #2c3e50;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .disclaimer {
+      font-size: 12px;
+      color: #777;
+      margin-top: 20px;
+      line-height: 1.6;
+    }
+
+    #successModal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #f8fff8;
+      border-left: 5px solid #2ecc71;
+      padding: 24px 28px;
+      max-width: 420px;
+      width: 90%;
+      z-index: 9999;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      font-family: 'Segoe UI', sans-serif;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="dp.jpg" alt="Dr. Sumesh Subramanian" />
+    <h2>Dr. Sumesh Subramanian, MBBS, MS (Orthopaedics)</h2>
+    <p class="tagline">OrthoCure Bone & Joint Speciality Clinic<br/>Start Healing. Stay Moving.</p>
+  </header>
+
+  <div class="container">
+    <h1>Book Your Online Consultation</h1>
+    <form id="consultForm" method="post" novalidate>
+      <label for="Name">Full Name</label>
+      <input type="text" id="Name" name="Name" required />
+
+      <label for="Age">Age</label>
+      <input type="number" id="Age" name="Age" required />
+
+      <label for="Gender">Gender</label>
+      <select id="Gender" name="Gender" required>
+        <option value="" disabled selected>Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="Phone">WhatsApp Number</label>
+      <input type="tel" id="Phone" name="Phone" required />
+
+      <label for="Email">Email Address</label>
+      <input type="email" id="Email" name="Email" required placeholder="example@email.com" />
+
+      <label for="Problem">Primary Complaint / Issue</label>
+      <textarea id="Problem" name="Problem" rows="4" required></textarea>
+
+      <label for="PreferredTime">Preferred Time Slot</label>
+      <select id="PreferredTime" name="PreferredTime" required>
+        <option value="" disabled selected>Select Time Slot</option>
+        <option value="10AM - 1PM">10AM – 1PM</option>
+        <option value="2PM - 4PM">2PM – 4PM</option>
+        <option value="5PM - 9PM">5PM – 9PM</option>
+      </select>
+
+      <label for="PreferredExactTime">Preferred Time (Optional)</label>
+      <input type="text" id="PreferredExactTime" name="PreferredExactTime" placeholder="e.g., 6:15 PM" />
+
+      <label class="consent-label">
+        <input type="checkbox" id="consent" required />
+        I agree to the terms of online consultation and consent to receive communication via WhatsApp and Email.
+      </label>
+
+      <button type="submit">Submit Consultation Request</button>
+      <p class="disclaimer">
+        This form is secure and compliant with the Telemedicine Practice Guidelines, Govt. of India.<br>
+        No Schedule X or habit-forming drugs will be prescribed.
+      </p>
+    </form>
+  </div>
+
+  <!-- Modal -->
+  <div id="successModal">
+    <div style="display: flex; align-items: center; margin-bottom: 16px;">
+      <div style="font-size: 26px; color: #2ecc71; margin-right: 12px;">✅</div>
+      <div style="font-size: 18px; font-weight: 600; color: #2c3e50;">
+        Consultation Request Submitted
+      </div>
+    </div>
+    <p style="font-size: 15px; color: #444; margin-top: 0;">
+      Thank you for reaching out to <strong>Dr. Sumesh Subramanian</strong> at
+      <strong>OrthoCure Bone & Joint Speciality Clinic</strong>.
+    </p>
+    <p style="font-size: 14px; color: #555;">
+      You will receive a confirmation via WhatsApp shortly.
+      Please wait for timing approval before making any payment.
+    </p>
+    <p style="font-size: 12px; color: #888; text-align: right; margin-top: 12px;">
+      — OrthoCure Team
+    </p>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbya7gHSgUWOYgogqECw-AlpZmXFLlDJKNt_hHUJ19RlYVzBAnGV8DUQTyqqj_ozI_weFQ/exec';
+      const form = document.getElementById('consultForm');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+          .then(response => {
+            if (response.ok) {
+              form.reset();
+              document.getElementById("successModal").style.display = "block";
+            } else {
+              alert("❌ Error submitting form. Please try again.");
+            }
+          })
+          .catch(error => {
+            alert("❌ Submission failed. Please try again.");
+            console.error('Error!', error.message);
+          });
+      });
+    });
+  </script>
+</body>
+</html>
