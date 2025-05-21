@@ -114,18 +114,18 @@
 
     <div class="form-group">
       <label for="preferredExactTime">Preferred Time (Optional)</label>
-      <input type="text" name="preferredExactTime" placeholder="e.g., 6:15 PM" />
+      <input type="text" name="preferredExactTime" placeholder="e.g., 6:30 PM" />
     </div>
 
     <div class="form-group">
-      <label for="reports">Upload Reports / X-rays (if any)</label>
-      <input type="file" name="reports" disabled placeholder="(Submit via WhatsApp after confirmation)" />
+      <label for="reports">Upload Reports / X-rays (optional)</label>
+      <input type="file" name="reports" disabled placeholder="(Send via WhatsApp later)" />
     </div>
 
     <div class="form-group">
       <label>
         <input type="checkbox" name="consent" required />
-        I agree to the terms of online consultation and consent to receive communication via WhatsApp and Email.
+        I agree to the terms and consent to communication via WhatsApp and Email.
       </label>
     </div>
 
@@ -134,8 +134,8 @@
 
   <div id="successModal">
     <h3>✅ Consultation Request Submitted</h3>
-    <p>Thank you for reaching out to <strong>Dr. Sumesh Subramanian</strong> at <strong>OrthoCure Bone & Joint Speciality Clinic</strong>.</p>
-    <p>You will receive a confirmation via WhatsApp shortly. Please wait for timing approval before making any payment.</p>
+    <p>Thank you for contacting <strong>Dr. Sumesh Subramanian</strong> at <strong>OrthoCure Bone & Joint Speciality Clinic</strong>.</p>
+    <p>You'll receive a WhatsApp message shortly for confirmation. Please wait for a response before making payment.</p>
     <p style="text-align: right;">— OrthoCure Team</p>
   </div>
 
@@ -156,7 +156,10 @@
         form.reset();
         modal.style.display = 'block';
       })
-      .catch(error => alert('Error! Please try again.'));
+      .catch(error => {
+        alert('Submission failed. Please try again.');
+        console.error('Error!', error.message);
+      });
     });
   </script>
 </body>
