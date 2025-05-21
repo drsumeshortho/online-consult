@@ -12,6 +12,7 @@
       margin: 0;
       padding: 0;
     }
+
     header {
       display: flex;
       flex-direction: column;
@@ -21,20 +22,24 @@
       border-bottom: 1px solid #ddd;
       text-align: center;
     }
+
     header img {
       height: 100px;
       border-radius: 8px;
       margin-bottom: 10px;
     }
+
     header h2 {
       margin: 0;
       font-size: 24px;
     }
+
     .tagline {
       font-size: 16px;
       color: #555;
       margin-top: 4px;
     }
+
     .container {
       max-width: 100%;
       width: 95%;
@@ -44,17 +49,20 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.05);
     }
+
     h1 {
       font-size: 22px;
       margin-bottom: 20px;
       text-align: center;
     }
+
     label {
       display: block;
       margin-top: 15px;
       font-weight: 600;
       font-size: 15px;
     }
+
     input, select, textarea {
       width: 100%;
       padding: 12px;
@@ -63,6 +71,7 @@
       border: 1px solid #ccc;
       font-size: 15px;
     }
+
     .consent-label {
       display: flex;
       align-items: center;
@@ -70,11 +79,13 @@
       font-size: 14px;
       margin-top: 20px;
     }
+
     .consent-label input {
       margin-right: 10px;
       width: 18px;
       height: 18px;
     }
+
     button {
       margin-top: 20px;
       width: 100%;
@@ -87,12 +98,14 @@
       border-radius: 6px;
       cursor: pointer;
     }
+
     .disclaimer {
       font-size: 12px;
       color: #777;
       margin-top: 20px;
       line-height: 1.6;
     }
+
     #successModal {
       position: fixed;
       top: 50%;
@@ -138,6 +151,9 @@
       <label for="Phone">WhatsApp Number</label>
       <input type="tel" id="Phone" name="Phone" required />
 
+      <label for="Email">Email Address</label>
+      <input type="email" id="Email" name="Email" required placeholder="example@email.com" />
+
       <label for="Problem">Primary Complaint / Issue</label>
       <textarea id="Problem" name="Problem" rows="4" required></textarea>
 
@@ -149,13 +165,19 @@
         <option value="5PM - 9PM">5PM – 9PM</option>
       </select>
 
+      <label for="PreferredExactTime">Preferred Time (Optional)</label>
+      <input type="text" id="PreferredExactTime" name="PreferredExactTime" placeholder="e.g., 6:15 PM" />
+
       <label class="consent-label">
         <input type="checkbox" id="consent" required />
-        I agree to the terms of online consultation and consent to share my information.
+        I agree to the terms of online consultation and consent to receive communication via WhatsApp and Email.
       </label>
 
       <button type="submit">Submit Consultation Request</button>
-      <p class="disclaimer">This form is secure and compliant with the Telemedicine Practice Guidelines, Govt. of India. No Schedule X or habit-forming drugs will be prescribed.</p>
+      <p class="disclaimer">
+        This form is secure and compliant with the Telemedicine Practice Guidelines, Govt. of India.<br>
+        No Schedule X or habit-forming drugs will be prescribed.
+      </p>
     </form>
   </div>
 
