@@ -62,4 +62,92 @@
     <h2>Dr. Sumesh Subramanian</h2>
     <p><strong>MS Ortho, Fellowship in Arthroplasty</strong></p>
     <h3>OrthoCure Bone & Joint Speciality Clinic</h3>
-    <p><i>Start Healin
+    <p><i>Start Healing. Stay Moving.</i></p>
+  </div>
+
+  <form id="consultForm">
+    <label>Full Name</label>
+    <input type="text" name="name" required>
+
+    <label>Age</label>
+    <input type="number" name="age" required>
+
+    <label>Gender</label>
+    <select name="gender" required>
+      <option value="">Select Gender</option>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+    </select>
+
+    <label>WhatsApp Number</label>
+    <input type="tel" name="phone" required>
+
+    <label>Email</label>
+    <input type="email" name="email" required>
+
+    <label>Primary Complaint / Issue</label>
+    <textarea name="problem" rows="3" required></textarea>
+
+    <label>Preferred Consultation Day</label>
+    <select name="consultationDay" required>
+      <option value="">Select Day</option>
+      <option>Monday</option>
+      <option>Tuesday</option>
+      <option>Wednesday</option>
+      <option>Thursday</option>
+      <option>Friday</option>
+      <option>Saturday</option>
+    </select>
+
+    <label>Preferred Time Slot</label>
+    <select name="preferredTime" required>
+      <option value="">Select Time Slot</option>
+      <option>10AM – 1PM</option>
+      <option>2PM – 4PM</option>
+      <option>5PM – 9PM</option>
+    </select>
+
+    <label>Preferred Exact Time (Optional)</label>
+    <input type="text" name="preferredExactTime" placeholder="e.g., 6:15 PM" />
+
+    <label>
+      <input type="checkbox" name="consent" required />
+      I consent to communication via WhatsApp and Email.
+    </label>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <div id="successModal">
+    <h3 style="color: #2ecc71;">✅ Your Consultation Request Has Been Sent</h3>
+    <p>Thank you for contacting <strong>Dr. Sumesh Subramanian</strong> at <strong>OrthoCure Bone & Joint Speciality Clinic</strong>.</p>
+    <p>We will message you on WhatsApp shortly to confirm your consultation time.</p>
+    <p style="font-style: italic; color: #555;">Please wait for confirmation before making any payment.</p>
+  </div>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwkXt36ia19iOKtcccGSCPGg5g7h0zqDh0NgXoef5QV8RsKkSamkVhwS_f86XkTQlza/exec'; // Replace this with your deployed script URL
+    const form = document.getElementById('consultForm');
+    const modal = document.getElementById('successModal');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+        .then(response => {
+          if (response.ok) {
+            form.reset();
+            modal.style.display = 'block';
+          } else {
+            alert("❌ Submission failed. Please try again.");
+          }
+        })
+        .catch(error => {
+          alert("❌ Submission failed. Check your connection.");
+          console.error('Error!', error.message);
+        });
+    });
+  </script>
+</body>
+</html>
