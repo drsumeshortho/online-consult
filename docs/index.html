@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Online Consultation | OrthoCure</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #f9f9f9;
+      color: #2c3e50;
       padding: 20px;
       max-width: 600px;
       margin: auto;
@@ -33,9 +35,10 @@
     }
     input, select, textarea {
       width: 100%;
-      padding: 8px;
+      padding: 10px;
       border: 1px solid #ccc;
       border-radius: 6px;
+      font-size: 15px;
     }
     button {
       background-color: #0077b6;
@@ -45,6 +48,7 @@
       border-radius: 6px;
       width: 100%;
       font-size: 16px;
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -59,10 +63,76 @@
 
   <form action="https://script.google.com/macros/s/AKfycbxEHp4Cs3mgU0Ci9zWOmCJttMCNfb7YRS--6OAdGHAVOlppkVsfY3OLXYHG_enOvVs/exec" method="POST">
     <div class="form-group">
-      <label>Full Name</label>
-      <input type="text" name="name" required>
+      <label for="name">Full Name</label>
+      <input type="text" name="name" id="name" required>
     </div>
 
     <div class="form-group">
-      <label>Age</label>
-      <input type="number" name="age" required
+      <label for="age">Age</label>
+      <input type="number" name="age" id="age" required>
+    </div>
+
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <select name="gender" id="gender" required>
+        <option value="">Select Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">WhatsApp Number</label>
+      <input type="tel" name="phone" id="phone" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" name="email" id="email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="problem">Primary Complaint / Issue</label>
+      <textarea name="problem" id="problem" rows="3" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="consultationDay">Preferred Consultation Day</label>
+      <select name="consultationDay" id="consultationDay" required>
+        <option value="">Select Day</option>
+        <option>Monday</option>
+        <option>Tuesday</option>
+        <option>Wednesday</option>
+        <option>Thursday</option>
+        <option>Friday</option>
+        <option>Saturday</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="preferredTime">Preferred Time Slot</label>
+      <select name="preferredTime" id="preferredTime" required>
+        <option value="">Select Time Slot</option>
+        <option>10AM – 1PM</option>
+        <option>2PM – 4PM</option>
+        <option>5PM – 9PM</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="preferredExactTime">Preferred Time (Optional)</label>
+      <input type="text" name="preferredExactTime" id="preferredExactTime" placeholder="e.g., 6:15 PM">
+    </div>
+
+    <div class="form-group">
+      <label>
+        <input type="checkbox" required>
+        I agree to the terms of consultation and WhatsApp/email communication.
+      </label>
+    </div>
+
+    <button type="submit">Submit Consultation Request</button>
+  </form>
+</body>
+</html>
