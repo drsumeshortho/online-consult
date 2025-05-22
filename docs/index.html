@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Online Consultation | OrthoCure Clinic</title>
+  <meta charset="UTF-8">
+  <title>Online Consultation | OrthoCure</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #f9f9f9;
-      color: #2c3e50;
       padding: 20px;
       max-width: 600px;
       margin: auto;
@@ -48,99 +46,23 @@
       width: 100%;
       font-size: 16px;
     }
-    #successModal {
-      display: none;
-      background: #e9f9ec;
-      border-left: 6px solid #2ecc71;
-      padding: 20px;
-      border-radius: 8px;
-      margin-top: 20px;
-    }
   </style>
 </head>
 <body>
   <div class="branding">
     <img src="dp.jpg" alt="Dr. Sumesh Subramanian" />
-    <h2 style="color: #004080;">Dr. Sumesh Subramanian</h2>
+    <h2>Dr. Sumesh Subramanian</h2>
     <p><strong>MS Ortho, Fellowship in Arthroplasty</strong></p>
-    <h3 style="color: #0077b6;">OrthoCure Bone & Joint Speciality Clinic</h3>
-    <p style="font-style: italic;">Start Healing. Stay Moving.</p>
+    <h3>OrthoCure Bone & Joint Speciality Clinic</h3>
+    <p><i>Start Healing. Stay Moving.</i></p>
   </div>
 
-  <form id="consultForm">
-    <div class="form-group"><label>Full Name</label><input type="text" id="name" required></div>
-    <div class="form-group"><label>Age</label><input type="number" id="age" required></div>
-    <div class="form-group"><label>Gender</label>
-      <select id="gender" required>
-        <option value="">-- Select --</option><option>Male</option><option>Female</option><option>Other</option>
-      </select>
-    </div>
-    <div class="form-group"><label>Phone Number</label><input type="tel" id="phone" required></div>
-    <div class="form-group"><label>Email ID</label><input type="email" id="email" required></div>
-    <div class="form-group"><label>Describe Your Problem</label><textarea id="problem" required></textarea></div>
-    <div class="form-group"><label>Preferred Consultation Day</label>
-      <select id="consultationDay" required>
-        <option value="">-- Please select --</option><option>Monday</option><option>Tuesday</option>
-        <option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Saturday</option>
-      </select>
-    </div>
-    <div class="form-group"><label>Preferred Time Slot</label>
-      <select id="preferredTime" required>
-        <option value="">-- Select Slot --</option><option>10AM – 1PM</option><option>2PM – 4PM</option><option>5PM – 9PM</option>
-      </select>
-    </div>
-    <div class="form-group"><label>Preferred Exact Time (Optional)</label>
-      <input type="text" id="preferredExactTime" placeholder="e.g., 6:45 PM">
-    </div>
+  <form action="https://script.google.com/macros/s/AKfycbxEHp4Cs3mgU0Ci9zWOmCJttMCNfb7YRS--6OAdGHAVOlppkVsfY3OLXYHG_enOvVs/exec" method="POST">
     <div class="form-group">
-      <label><input type="checkbox" id="consent" required /> I agree to the terms and conditions.</label>
+      <label>Full Name</label>
+      <input type="text" name="name" required>
     </div>
-    <button type="submit">Submit Consultation Request</button>
-  </form>
 
-  <div id="successModal">
-    <h3>✅ Consultation Request Submitted</h3>
-    <p>You'll receive a WhatsApp confirmation shortly.</p>
-    <p style="text-align: right;">— OrthoCure Team</p>
-  </div>
-
-<script>
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbxEHp4Cs3mgU0Ci9zWOmCJttMCNfb7YRS--6OAdGHAVOlppkVsfY3OLXYHG_enOvVs/exec';
-  const form = document.getElementById('consultForm');
-  const modal = document.getElementById('successModal');
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const payload = new URLSearchParams({
-      name: document.getElementById('name').value,
-      age: document.getElementById('age').value,
-      gender: document.getElementById('gender').value,
-      phone: document.getElementById('phone').value,
-      email: document.getElementById('email').value,
-      problem: document.getElementById('problem').value,
-      consultationDay: document.getElementById('consultationDay').value,
-      preferredTime: document.getElementById('preferredTime').value,
-      preferredExactTime: document.getElementById('preferredExactTime').value
-    });
-
-    fetch(scriptURL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: payload.toString()
-    })
-    .then(response => {
-      form.reset();
-      modal.style.display = 'block';
-    })
-    .catch(error => {
-      alert('Submission failed. Please try again.');
-      console.error('Error!', error.message);
-    });
-  });
-</script>
-
-</body>
-</html>
+    <div class="form-group">
+      <label>Age</label>
+      <input type="number" name="age" required
