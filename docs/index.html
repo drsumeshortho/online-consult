@@ -38,7 +38,27 @@
     <button type="submit">Submit</button>
   </form>
 
-  <div class="success" id="successMsg">✅ Form submitted! You’ll receive confirmation via WhatsApp.</div>
+  <div id="successModal" style="
+  display: none;
+  background: #f2fffa;
+  border-left: 6px solid #27ae60;
+  padding: 20px 24px;
+  max-width: 520px;
+  margin: 30px auto;
+  border-radius: 10px;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  color: #2c3e50;
+">
+  <h3 style="margin-top: 0; color: #27ae60;">✅ Consultation Request Submitted</h3>
+  <p><strong>Thank you!</strong> Your request has been received by <strong>Dr. Sumesh Subramanian</strong>.</p>
+  <p>You’ll receive a WhatsApp message shortly to confirm your consultation time.</p>
+  <p style="font-style: italic; color: #666; margin-bottom: 0;">
+    ⚠️ Please wait for confirmation before making any payment.
+  </p>
+  <p style="font-size: 12px; color: #aaa; text-align: right;">— OrthoCure Team</p>
+</div>
+
 
   <script>
     const form = document.getElementById("consultForm");
