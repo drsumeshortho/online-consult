@@ -68,12 +68,26 @@
     form.addEventListener("submit", e => {
       e.preventDefault();
       fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-        .then(() => {
-          form.reset();
-          successMsg.style.display = "block";
-        })
-        .catch(error => alert("Submission failed. Try again."));
-    });
+  .then(response => {
+    if (response.ok) {
+      return response.text(); // <-- Accept plain text
+    } else {
+      throw new Error("Server error");
+    }
+  })
+  .then(text => {
+    if (text === "Success") {
+      form.reset();
+      document.getElementById("successModal").style.display = "block";
+    } else {
+      throw new Error("Unexpected response");
+    }
+  })
+  .catch(error => {
+    alert("❌ Submission failed. Please try again.");
+    console.error("Submission error:", error);
+  });
+
   </script>
 </body>
 </html>
