@@ -68,6 +68,23 @@
   </style>
 </head>
 <body>
+  <!-- Success Modal -->
+<div id="successModal" style="
+  display: none;
+  background: #eafaf1;
+  border-left: 5px solid #2ecc71;
+  padding: 20px;
+  max-width: 500px;
+  margin: 30px auto;
+  border-radius: 10px;
+  font-family: 'Segoe UI', sans-serif;
+">
+  <h3 style="color: #2ecc71;">✅ Your Consultation Request Has Been Sent</h3>
+  <p>Thank you for contacting <strong>Dr. Sumesh Subramanian</strong> at <strong>OrthoCure Bone & Joint Speciality Clinic</strong>.</p>
+  <p>We will message you on WhatsApp shortly to confirm your consultation time.</p>
+  <p style="font-style: italic; color: #555;">Please wait for confirmation before making any payment.</p>
+</div>
+
   <div class="branding">
     <img src="dp.jpg" alt="Dr. Sumesh Subramanian" />
     <h2>Dr. Sumesh Subramanian</h2>
@@ -179,5 +196,32 @@
         });
     });
   </script>
+  <script>
+  const form = document.getElementById('consultForm');
+  const modal = document.getElementById('successModal');
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxEHp4Cs3mgU0Ci9zWOmCJttMCNfb7YRS--6OAdGHAVOlppkVsfY3OLXYHG_enOvVs/exec';
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault(); // Prevent page reload
+
+    fetch(scriptURL, {
+      method: 'POST',
+      body: new FormData(form)
+    })
+    .then(response => {
+      if (response.ok) {
+        form.reset();
+        modal.style.display = 'block';
+      } else {
+        alert("❌ Submission failed. Please try again.");
+      }
+    })
+    .catch(error => {
+      alert("❌ Submission failed. Check internet connection.");
+      console.error('Error!', error.message);
+    });
+  });
+</script>
+
 </body>
 </html>
