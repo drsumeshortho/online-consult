@@ -5,14 +5,55 @@
   <title>Online Consultation | OrthoCure Clinic</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <style>
-    body { font-family: 'Segoe UI', sans-serif; padding: 20px; max-width: 600px; margin: auto; background: #f9f9f9; }
-    .branding { text-align: center; margin-bottom: 25px; }
-    .branding img { width: 110px; height: 110px; border-radius: 60px; border: 3px solid #0077b6; object-fit: cover; margin-bottom: 10px; }
-    .form-group { margin-bottom: 16px; }
-    label { font-weight: bold; display: block; margin-bottom: 5px; }
-    input, select, textarea { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; }
-    button { width: 100%; background: #0077b6; color: white; padding: 14px; border: none; font-size: 16px; border-radius: 6px; cursor: pointer; }
-    .success { display: none; background: #e6fff2; padding: 15px; border-left: 6px solid #2ecc71; margin-top: 20px; border-radius: 8px; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    .branding {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    .branding img {
+      width: 110px;
+      height: 110px;
+      border-radius: 60px;
+      border: 3px solid #0077b6;
+      object-fit: cover;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      background-color: #0077b6;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    #successModal {
+      display: none;
+      background: #e8f9e9;
+      border-left: 6px solid #2ecc71;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 30px auto;
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
@@ -24,70 +65,91 @@
     <p><i>Start Healing. Stay Moving.</i></p>
   </div>
 
-  <form id="consultForm">
-    <div class="form-group"><label>Name</label><input name="name" required></div>
-    <div class="form-group"><label>Age</label><input name="age" type="number" required></div>
-    <div class="form-group"><label>Gender</label><select name="gender" required><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select></div>
-    <div class="form-group"><label>WhatsApp Number</label><input name="phone" required></div>
-    <div class="form-group"><label>Email</label><input name="email" type="email" required></div>
-    <div class="form-group"><label>Primary Complaint / Issue</label><textarea name="problem" required></textarea></div>
-    <div class="form-group"><label>Preferred Consultation Day</label><select name="consultationDay" required><option value="">Select</option><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Saturday</option></select></div>
-    <div class="form-group"><label>Preferred Time Slot</label><select name="preferredTime" required><option value="">Select</option><option>10AM – 1PM</option><option>2PM – 4PM</option><option>5PM – 9PM</option></select></div>
-    <div class="form-group"><label>Preferred Exact Time (Optional)</label><input name="preferredExactTime" placeholder="e.g., 6:15 PM"></div>
-    <div class="form-group"><label><input type="checkbox" required> I consent to communication via WhatsApp and Email.</label></div>
+  <form id="consultForm" action="javascript:void(0);">
+    <label>Full Name</label>
+    <input type="text" name="name" required>
+
+    <label>Age</label>
+    <input type="number" name="age" required>
+
+    <label>Gender</label>
+    <select name="gender" required>
+      <option value="">Select Gender</option>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+    </select>
+
+    <label>WhatsApp Number</label>
+    <input type="tel" name="phone" required>
+
+    <label>Email</label>
+    <input type="email" name="email" required>
+
+    <label>Primary Complaint / Issue</label>
+    <textarea name="problem" rows="3" required></textarea>
+
+    <label>Preferred Consultation Day</label>
+    <select name="consultationDay" required>
+      <option value="">Select Day</option>
+      <option>Monday</option>
+      <option>Tuesday</option>
+      <option>Wednesday</option>
+      <option>Thursday</option>
+      <option>Friday</option>
+      <option>Saturday</option>
+    </select>
+
+    <label>Preferred Time Slot</label>
+    <select name="preferredTime" required>
+      <option value="">Select Time Slot</option>
+      <option>10AM – 1PM</option>
+      <option>2PM – 4PM</option>
+      <option>5PM – 9PM</option>
+    </select>
+
+    <label>Preferred Exact Time (Optional)</label>
+    <input type="text" name="preferredExactTime" placeholder="e.g., 6:15 PM" />
+
+    <label>
+      <input type="checkbox" name="consent" required />
+      I consent to communication via WhatsApp and Email.
+    </label>
+
     <button type="submit">Submit</button>
   </form>
 
-  <div id="successModal" style="
-  display: none;
-  background: #f2fffa;
-  border-left: 6px solid #27ae60;
-  padding: 20px 24px;
-  max-width: 520px;
-  margin: 30px auto;
-  border-radius: 10px;
-  font-family: 'Segoe UI', sans-serif;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  color: #2c3e50;
-">
-  <h3 style="margin-top: 0; color: #27ae60;">✅ Consultation Request Submitted</h3>
-  <p><strong>Thank you!</strong> Your request has been received by <strong>Dr. Sumesh Subramanian</strong>.</p>
-  <p>You’ll receive a WhatsApp message shortly to confirm your consultation time.</p>
-  <p style="font-style: italic; color: #666; margin-bottom: 0;">
-    ⚠️ Please wait for confirmation before making any payment.
-  </p>
-  <p style="font-size: 12px; color: #aaa; text-align: right;">— OrthoCure Team</p>
-</div>
-
+  <div id="successModal">
+    <h3 style="color: #2ecc71;">✅ Your Consultation Request Has Been Sent</h3>
+    <p>Thank you for contacting <strong>Dr. Sumesh Subramanian</strong> at <strong>OrthoCure Bone & Joint Speciality Clinic</strong>.</p>
+    <p>We will message you on WhatsApp shortly to confirm your consultation time.</p>
+    <p style="font-style: italic; color: #555;">Please wait for confirmation before making any payment.</p>
+  </div>
 
   <script>
-    const form = document.getElementById("consultForm");
-    const successMsg = document.getElementById("successMsg");
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwkXt36ia19iOKtcccGSCPGg5g7h0zqDh0NgXoef5QV8RsKkSamkVhwS_f86XkTQlza/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwkXt36ia19iOKtcccGSCPGg5g7h0zqDh0NgXoef5QV8RsKkSamkVhwS_f86XkTQlza/exec'; // Replace with real URL
+    const form = document.getElementById('consultForm');
+    const modal = document.getElementById('successModal');
 
-    form.addEventListener("submit", e => {
+    form.addEventListener('submit', function(e) {
       e.preventDefault();
-      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-  .then(response => {
-    if (response.ok) {
-      return response.text(); // <-- Accept plain text
-    } else {
-      throw new Error("Server error");
-    }
-  })
-  .then(text => {
-    if (text === "Success") {
-      form.reset();
-      document.getElementById("successModal").style.display = "block";
-    } else {
-      throw new Error("Unexpected response");
-    }
-  })
-  .catch(error => {
-    alert("❌ Submission failed. Please try again.");
-    console.error("Submission error:", error);
-  });
 
+      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+        .then(response => response.text())
+        .then(text => {
+          if (text.trim() === 'Success' || text.trim() === 'OK') {
+            form.reset();
+            modal.style.display = 'block';
+          } else {
+            console.error('Unexpected response:', text);
+            alert("❌ Submission failed. Please try again.");
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert("❌ Submission failed. Please check connection.");
+        });
+    });
   </script>
 </body>
 </html>
