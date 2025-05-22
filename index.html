@@ -1,59 +1,181 @@
-function doPost(e) {
-  try {
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("HTML Submissions");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Online Consultation | OrthoCure Clinic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
 
-    const name = e?.parameter?.name || "undefined";
-    const age = e?.parameter?.age || "undefined";
-    const gender = e?.parameter?.gender || "undefined";
-    const phone = e?.parameter?.phone || "undefined";
-    const email = e?.parameter?.email || "undefined";
-    const problem = e?.parameter?.problem || "undefined";
-    const consultationDay = e?.parameter?.consultationDay || "undefined";
-    const preferredTime = e?.parameter?.preferredTime || "undefined";
-    const preferredExactTime = e?.parameter?.preferredExactTime || "Not mentioned";
+    .branding {
+      text-align: center;
+      margin-bottom: 25px;
+    }
 
-    // Save to Google Sheet
-    sheet.appendRow([
-      new Date(),
-      name,
-      age,
-      gender,
-      phone,
-      email,
-      problem,
-      consultationDay,
-      preferredTime,
-      preferredExactTime
-    ]);
+    .branding img {
+      width: 110px;
+      height: 110px;
+      border-radius: 60px;
+      border: 3px solid #0077b6;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
 
-    // Email Alert
-    MailApp.sendEmail({
-      to: "santhosheks@gmail.com",
-      subject: `New Online Consultation - ${name}`,
-      body: `
-🩺 New Consultation Request
+    .form-group {
+      margin-bottom: 16px;
+    }
 
-📌 Name: ${name}
-🎂 Age: ${age}
-📱 Phone: ${phone}
-🚻 Gender: ${gender}
-🦴 Issue: ${problem}
-📅 Preferred Day: ${consultationDay}
-⏰ Time Slot: ${preferredTime}
-🕒 Exact Time: ${preferredExactTime}
-📧 Email: ${email}
-🕓 Timestamp: ${new Date().toLocaleString('en-IN')}
-      `
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    button {
+      background-color: #0077b6;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 6px;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .success {
+      background: #e6fff2;
+      border-left: 6px solid #2ecc71;
+      padding: 16px;
+      margin-top: 20px;
+      display: none;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="branding">
+    <img src="dp.jpg" alt="Dr. Sumesh Subramanian" />
+    <h2>Dr. Sumesh Subramanian</h2>
+    <p><strong>MS Ortho, Fellowship in Arthroplasty</strong></p>
+    <h3>OrthoCure Bone & Joint Speciality Clinic</h3>
+    <p><i>Start Healing. Stay Moving.</i></p>
+  </div>
+
+  <form id="consultForm" method="POST">
+    <div class="form-group">
+      <label for="name">Full Name</label>
+      <input type="text" name="name" id="name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="age">Age</label>
+      <input type="number" name="age" id="age" required>
+    </div>
+
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <select name="gender" id="gender" required>
+        <option value="">Select Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">WhatsApp Number</label>
+      <input type="tel" name="phone" id="phone" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" name="email" id="email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="problem">Primary Complaint / Issue</label>
+      <textarea name="problem" id="problem" rows="3" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="consultationDay">Preferred Consultation Day</label>
+      <select name="consultationDay" id="consultationDay" required>
+        <option value="">Select Day</option>
+        <option>Monday</option>
+        <option>Tuesday</option>
+        <option>Wednesday</option>
+        <option>Thursday</option>
+        <option>Friday</option>
+        <option>Saturday</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="preferredTime">Preferred Time Slot</label>
+      <select name="preferredTime" id="preferredTime" required>
+        <option value="">Select Time Slot</option>
+        <option>10AM – 1PM</option>
+        <option>2PM – 4PM</option>
+        <option>5PM – 9PM</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="preferredExactTime">Preferred Time (Optional)</label>
+      <input type="text" name="preferredExactTime" id="preferredExactTime" placeholder="e.g., 6:15 PM">
+    </div>
+
+    <div class="form-group">
+      <label>
+        <input type="checkbox" required>
+        I agree to the terms and communication via WhatsApp & Email.
+      </label>
+    </div>
+
+    <button type="submit">Submit Consultation Request</button>
+  </form>
+
+  <div class="success" id="successBox">
+    ✅ Your request was submitted successfully.<br/>
+    You will receive confirmation on WhatsApp shortly.
+  </div>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxEHp4Cs3mgU0Ci9zWOmCJttMCNfb7YRS--6OAdGHAVOlppkVsfY3OLXYHG_enOvVs/exec';
+    const form = document.getElementById('consultForm');
+    const successBox = document.getElementById('successBox');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+        .then(response => {
+          if (response.ok) {
+            form.reset();
+            successBox.style.display = 'block';
+          } else {
+            alert('Something went wrong. Please try again.');
+          }
+        })
+        .catch(error => {
+          alert('Form submission failed.');
+          console.error('Error!', error.message);
+        });
     });
-
-    return ContentService.createTextOutput("Success").setMimeType(ContentService.MimeType.TEXT);
-  } catch (error) {
-    Logger.log("❌ doPost error: " + error);
-    return ContentService.createTextOutput("Error: " + error).setMimeType(ContentService.MimeType.TEXT);
-  }
-}
-
-// ✅ Optional: For browser testing or GET access
-function doGet(e) {
-  return HtmlService.createHtmlOutput("🟢 This Web App is Active. Form must be submitted via POST.");
-}
+  </script>
+</body>
+</html>
