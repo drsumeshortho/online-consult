@@ -104,40 +104,43 @@
     <p style="text-align: right;">— OrthoCure Team</p>
   </div>
 
-  <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxEHp4Cs3mgU0Ci9zWOmCJttMCNfb7YRS--6OAdGHAVOlppkVsfY3OLXYHG_enOvVs/exec';
-    const form = document.getElementById('consultForm');
-    const modal = document.getElementById('successModal');
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxEHp4Cs3mgU0Ci9zWOmCJttMCNfb7YRS--6OAdGHAVOlppkVsfY3OLXYHG_enOvVs/exec';
+  const form = document.getElementById('consultForm');
+  const modal = document.getElementById('successModal');
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
+  form.addEventListener('submit', e => {
+    e.preventDefault();
 
-      const payload = {
-        name: document.getElementById('name').value,
-        age: document.getElementById('age').value,
-        gender: document.getElementById('gender').value,
-        phone: document.getElementById('phone').value,
-        email: document.getElementById('email').value,
-        problem: document.getElementById('problem').value,
-        consultationDay: document.getElementById('consultationDay').value,
-        preferredTime: document.getElementById('preferredTime').value,
-        preferredExactTime: document.getElementById('preferredExactTime').value
-      };
-
-      fetch(scriptURL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(payload)
-      })
-      .then(response => {
-        form.reset();
-        modal.style.display = 'block';
-      })
-      .catch(error => {
-        alert('Submission failed. Please try again.');
-        console.error('Error!', error.message);
-      });
+    const payload = new URLSearchParams({
+      name: document.getElementById('name').value,
+      age: document.getElementById('age').value,
+      gender: document.getElementById('gender').value,
+      phone: document.getElementById('phone').value,
+      email: document.getElementById('email').value,
+      problem: document.getElementById('problem').value,
+      consultationDay: document.getElementById('consultationDay').value,
+      preferredTime: document.getElementById('preferredTime').value,
+      preferredExactTime: document.getElementById('preferredExactTime').value
     });
-  </script>
+
+    fetch(scriptURL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: payload.toString()
+    })
+    .then(response => {
+      form.reset();
+      modal.style.display = 'block';
+    })
+    .catch(error => {
+      alert('Submission failed. Please try again.');
+      console.error('Error!', error.message);
+    });
+  });
+</script>
+
 </body>
 </html>
