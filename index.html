@@ -1,188 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Online Consultation | OrthoCure Clinic</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f9f9f9;
-      color: #2c3e50;
-      padding: 0;
-      margin: 0;
-    }
+function doPost(e) {
+  try {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("HTML Submissions");
 
-    header, .branding {
-      text-align: center;
-      margin-top: 20px;
-    }
+    const name = e?.parameter?.name || "undefined";
+    const age = e?.parameter?.age || "undefined";
+    const gender = e?.parameter?.gender || "undefined";
+    const phone = e?.parameter?.phone || "undefined";
+    const email = e?.parameter?.email || "undefined";
+    const problem = e?.parameter?.problem || "undefined";
+    const consultationDay = e?.parameter?.consultationDay || "undefined";
+    const preferredTime = e?.parameter?.preferredTime || "undefined";
+    const preferredExactTime = e?.parameter?.preferredExactTime || "Not mentioned";
 
-    .branding img {
-      width: 120px;
-      height: 120px;
-      border-radius: 60px;
-      border: 3px solid #0077b6;
-      object-fit: cover;
-    }
+    // Save to Google Sheet
+    sheet.appendRow([
+      new Date(),
+      name,
+      age,
+      gender,
+      phone,
+      email,
+      problem,
+      consultationDay,
+      preferredTime,
+      preferredExactTime
+    ]);
 
-    h2, h3 {
-      margin: 10px 0 4px;
-    }
+    // Email Alert
+    MailApp.sendEmail({
+      to: "santhosheks@gmail.com",
+      subject: `New Online Consultation - ${name}`,
+      body: `
+🩺 New Consultation Request
 
-    .tagline {
-      font-style: italic;
-      color: #2c3e50;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 30px auto;
-      background: #ffffff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    }
-
-    label {
-      font-weight: 600;
-      display: block;
-      margin-top: 16px;
-      font-size: 14px;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      font-size: 15px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-
-    .consent-label {
-      margin-top: 20px;
-      font-size: 14px;
-    }
-
-    button {
-      width: 100%;
-      margin-top: 20px;
-      padding: 14px;
-      background-color: #0077b6;
-      color: white;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    #successModal {
-      display: none;
-      background: #e8f9e9;
-      border-left: 6px solid #2ecc71;
-      padding: 20px;
-      border-radius: 10px;
-      margin: 30px auto;
-      max-width: 500px;
-      font-size: 16px;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="branding">
-    <img src="dp.jpg" alt="Dr. Sumesh Subramanian" />
-    <h2>Dr. Sumesh Subramanian</h2>
-    <p><strong>MS Ortho, Fellowship in Arthroplasty</strong></p>
-    <h3>OrthoCure Bone & Joint Speciality Clinic</h3>
-    <p class="tagline">Start Healing. Stay Moving.</p>
-  </div>
-
-  <div class="container">
-    <form id="consultForm" method="post">
-      <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" required />
-
-      <label for="age">Age</label>
-      <input type="number" id="age" name="age" required />
-
-      <label for="gender">Gender</label>
-      <select id="gender" name="gender" required>
-        <option value="">Select Gender</option>
-        <option>Male</option>
-        <option>Female</option>
-        <option>Other</option>
-      </select>
-
-      <label for="phone">WhatsApp Number</label>
-      <input type="tel" id="phone" name="phone" required />
-
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" required />
-
-      <label for="problem">Primary Complaint / Issue</label>
-      <textarea id="problem" name="problem" rows="3" required></textarea>
-
-      <label for="consultationDay">Preferred Consultation Day</label>
-      <select id="consultationDay" name="consultationDay" required>
-        <option value="">Select Day</option>
-        <option>Monday</option>
-        <option>Tuesday</option>
-        <option>Wednesday</option>
-        <option>Thursday</option>
-        <option>Friday</option>
-        <option>Saturday</option>
-      </select>
-
-      <label for="preferredTime">Preferred Time Slot</label>
-      <select id="preferredTime" name="preferredTime" required>
-        <option value="">Select Time Slot</option>
-        <option>10AM – 1PM</option>
-        <option>2PM – 4PM</option>
-        <option>5PM – 9PM</option>
-      </select>
-
-      <label for="preferredExactTime">Preferred Time (Optional)</label>
-      <input type="text" id="preferredExactTime" name="preferredExactTime" placeholder="e.g., 6:15 PM" />
-
-      <label class="consent-label">
-        <input type="checkbox" id="consent" required />
-        I agree to the terms of online consultation and consent to receive communication via WhatsApp and Email.
-      </label>
-      
-      <button type="submit">Submit Consultation Request</button>
-    </form>
-
-    <div id="successModal">
-      <h3>✅ Consultation Request Submitted</h3>
-      <p>Thank you for reaching out to <strong>Dr. Sumesh Subramanian</strong> at <strong>OrthoCure Bone & Joint Speciality Clinic</strong>.</p>
-      <p>You will receive a confirmation via WhatsApp shortly. Please wait for timing approval before making any payment.</p>
-      <p style="text-align:right;">— OrthoCure Team</p>
-    </div>
-  </div>
-
-  <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxEHp4Cs3mgU0Ci9zWOmCJttMCNfb7YRS--6OAdGHAVOlppkVsfY3OLXYHG_enOvVs/exec';
-    const form = document.getElementById('consultForm');
-    const modal = document.getElementById('successModal');
-
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-
-      fetch(scriptURL, {
-        method: 'POST',
-        body: new FormData(form)
-      })
-      .then(response => {
-        form.reset();
-        modal.style.display = 'block';
-      })
-      .catch(error => {
-        alert('Submission failed. Please try again.');
-        console.error('Error!', error.message);
-      });
+📌 Name: ${name}
+🎂 Age: ${age}
+📱 Phone: ${phone}
+🚻 Gender: ${gender}
+🦴 Issue: ${problem}
+📅 Preferred Day: ${consultationDay}
+⏰ Time Slot: ${preferredTime}
+🕒 Exact Time: ${preferredExactTime}
+📧 Email: ${email}
+🕓 Timestamp: ${new Date().toLocaleString('en-IN')}
+      `
     });
-  </script>
-</body>
-</html>
+
+    return ContentService.createTextOutput("Success").setMimeType(ContentService.MimeType.TEXT);
+  } catch (error) {
+    Logger.log("❌ doPost error: " + error);
+    return ContentService.createTextOutput("Error: " + error).setMimeType(ContentService.MimeType.TEXT);
+  }
+}
+
+// ✅ Optional: For browser testing or GET access
+function doGet(e) {
+  return HtmlService.createHtmlOutput("🟢 This Web App is Active. Form must be submitted via POST.");
+}
