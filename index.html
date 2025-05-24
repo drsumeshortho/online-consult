@@ -146,27 +146,33 @@
   </div>
 
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzj7nRt7itvk_IsFMAE1fpXK70tTRq_OKu1KnjfzSj_r6pXhb2F4wvHgpVPAXljr6cC/exec'; // Replace this with your deployed script URL
-    const form = document.getElementById('consultForm');
-    const modal = document.getElementById('successModal');
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbzj7nRt7itvk_IsFMAE1fpXK70tTRq_OKu1KnjfzSj_r6pXhb2F4wvHgpVPAXljr6cC/exec';
+  const form = document.getElementById('consultForm');
+  const modal = document.getElementById('successModal');
+  const button = form.querySelector("button");
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    button.disabled = true;
+    button.innerText = "Submitting...";
 
-      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-        .then(response => {
-          if (response.ok) {
-            form.reset();
-            modal.style.display = 'block';
-          } else {
-            alert("❌ Submission failed. Please try again.");
-          }
-        })
-        .catch(error => {
-          alert("❌ Submission failed. Check your connection.");
-          console.error('Error!', error.message);
-        });
-    });
-  </script>
+    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+      .then(response => {
+        button.disabled = false;
+        button.innerText = "Submit";
+        if (response.ok) {
+          form.reset();
+          modal.style.display = 'block';
+        } else {
+          alert("❌ Submission failed. Please try again.");
+        }
+      })
+      .catch(error => {
+        button.disabled = false;
+        button.innerText = "Submit";
+        alert("❌ Submission failed. Check your connection.");
+      });
+  });
+</script>
 </body>
 </html>
