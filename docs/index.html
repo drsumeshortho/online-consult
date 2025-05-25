@@ -142,8 +142,10 @@
 
       fetch(scriptURL, {
         method: 'POST',
-        body: jsonData,
-        headers: { 'Content-Type': 'application/json' }
+        body: JSON.stringify(Object.fromEntries(formData.entries())),
+  headers: {
+    'Content-Type': 'application/json'
+  }
       })
       .then(res => res.json())
       .then(res => {
