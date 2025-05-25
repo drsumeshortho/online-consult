@@ -65,15 +65,15 @@
     <p><i>Start Healing. Stay Moving.</i></p>
   </div>
 
-  <form id="consultForm" action="javascript:void(0);">
+  <form id="consultForm">
     <label>Full Name</label>
-    <input type="text" name="name" required>
+    <input type="text" name="Name" required>
 
     <label>Age</label>
-    <input type="number" name="age" required>
+    <input type="number" name="Age" required>
 
     <label>Gender</label>
-    <select name="gender" required>
+    <select name="Gender" required>
       <option value="">Select Gender</option>
       <option>Male</option>
       <option>Female</option>
@@ -81,16 +81,16 @@
     </select>
 
     <label>WhatsApp Number</label>
-    <input type="tel" name="phone" required>
+    <input type="tel" name="Phone" required>
 
     <label>Email</label>
-    <input type="email" name="email" required>
+    <input type="email" name="Email" required>
 
     <label>Primary Complaint / Issue</label>
-    <textarea name="problem" rows="3" required></textarea>
+    <textarea name="Problem" rows="3" required></textarea>
 
     <label>Preferred Consultation Day</label>
-    <select name="consultationDay" required>
+    <select name="ConsultationDay" required>
       <option value="">Select Day</option>
       <option>Monday</option>
       <option>Tuesday</option>
@@ -101,7 +101,7 @@
     </select>
 
     <label>Preferred Time Slot</label>
-    <select name="preferredTime" required>
+    <select name="PreferredTime" required>
       <option value="">Select Time Slot</option>
       <option>10AM – 1PM</option>
       <option>2PM – 4PM</option>
@@ -109,10 +109,10 @@
     </select>
 
     <label>Preferred Exact Time (Optional)</label>
-    <input type="text" name="preferredExactTime" placeholder="e.g., 6:15 PM" />
+    <input type="text" name="PreferredExactTime" placeholder="e.g., 6:15 PM" />
 
     <label>
-      <input type="checkbox" name="consent" required />
+      <input type="checkbox" name="Consent" value="Yes" required />
       I consent to communication via WhatsApp and Email.
     </label>
 
@@ -127,28 +127,40 @@
   </div>
 
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzj7nRt7itvk_IsFMAE1fpXK70tTRq_OKu1KnjfzSj_r6pXhb2F4wvHgpVPAXljr6cC/exec'; // Replace with real URL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzj7nRt7itvk_IsFMAE1fpXK70tTRq_OKu1KnjfzSj_r6pXhb2F4wvHgpVPAXljr6cC/exec';
     const form = document.getElementById('consultForm');
     const modal = document.getElementById('successModal');
+    const button = form.querySelector("button");
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', e => {
       e.preventDefault();
+      button.disabled = true;
+      button.innerText = "Submitting...";
 
-      fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-        .then(response => response.text())
-        .then(text => {
-          if (text.trim() === 'Success' || text.trim() === 'OK') {
-            form.reset();
-            modal.style.display = 'block';
-          } else {
-            console.error('Unexpected response:', text);
-            alert("❌ Submission failed. Please try again.");
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          alert("❌ Submission failed. Please check connection.");
-        });
+      const formData = new FormData(form);
+      const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
+
+      fetch(scriptURL, {
+        method: 'POST',
+        body: jsonData,
+        headers: { 'Content-Type': 'application/json' }
+      })
+      .then(response => {
+        button.disabled = false;
+        button.innerText = "Submit";
+        if (response.ok) {
+          form.reset();
+          modal.style.display = 'block';
+        } else {
+          alert("❌ Submission failed. Please try again.");
+        }
+      })
+      .catch(error => {
+        button.disabled = false;
+        button.innerText = "Submit";
+        alert("❌ Submission failed. Check your connection.");
+        console.error('Error:', error);
+      });
     });
   </script>
 </body>
