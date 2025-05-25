@@ -141,7 +141,7 @@
       .then(res => {
         button.disabled = false;
         button.innerText = "Submit";
-        if (res.status === "ok") {
+        if (res.status && res.status.toLowerCase() === "ok") {
           form.reset();
           modal.style.display = 'block';
         } else {
