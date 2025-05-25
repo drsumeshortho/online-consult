@@ -41,10 +41,11 @@
       const jsonData = JSON.stringify(Object.fromEntries(new FormData(form).entries()));
 
       fetch(scriptURL, {
-        method: 'POST',
-        body: jsonData,
-        headers: { 'Content-Type': 'application/json' }
-      })
+  method: 'POST',
+  body: JSON.stringify(Object.fromEntries(new FormData(form).entries())),
+  headers: { 'Content-Type': 'application/json' }
+})
+
       .then(res => res.json())
       .then(res => {
         button.disabled = false;
