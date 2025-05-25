@@ -127,44 +127,44 @@
   </div>
 
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzw23wkCIglQxEAWghEw-PYn_8H1RR219Vx5iFuwAqAzLS45mVvfFTfg7ZZvfSaYGG2NA/exec';
-    const form = document.getElementById('consultForm');
-    const modal = document.getElementById('successModal');
-    const button = form.querySelector("button");
+  const form = document.getElementById('consultForm');
+  const modal = document.getElementById('successModal');
+  const button = form.querySelector("button");
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbzw23wkCIglQxEAWghEw-PYn_8H1RR219Vx5iFuwAqAzLS45mVvfFTfg7ZZvfSaYGG2NA/exec'; // <- insert deployed URL
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      button.disabled = true;
-      button.innerText = "Submitting...";
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    button.disabled = true;
+    button.innerText = "Submitting...";
 
-      const formData = new FormData(form);
-      const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
+    const formData = new FormData(form);
+    const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
 
-      fetch(scriptURL, {
-        method: 'POST',
-        body: JSON.stringify(Object.fromEntries(formData.entries())),
-  headers: {
-    'Content-Type': 'application/json'
-  }
-      })
-      .then(res => res.json())
-      .then(res => {
-        button.disabled = false;
-        button.innerText = "Submit";
-        if (res.status === "ok") {
-          form.reset();
-          modal.style.display = 'block';
-        } else {
-          alert("❌ Submission failed: " + (res.message || "Try again."));
-        }
-      })
-      .catch(err => {
-        button.disabled = false;
-        button.innerText = "Submit";
-        alert("❌ Submission failed. Check your connection.");
-        console.error(err);
-      });
+    fetch(scriptURL, {
+      method: 'POST',
+      body: jsonData,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      button.disabled = false;
+      button.innerText = "Submit";
+      if (data.status === "ok") {
+        form.reset();
+        modal.style.display = 'block';
+      } else {
+        alert("❌ Submission failed: " + data.message);
+      }
+    })
+    .catch(err => {
+      button.disabled = false;
+      button.innerText = "Submit";
+      alert("❌ Network error. Check connection or script link.");
+      console.error(err);
     });
-  </script>
+  });
+</script>
 </body>
 </html>
