@@ -68,10 +68,8 @@
   <form id="consultForm">
     <label>Full Name</label>
     <input type="text" name="Name" required>
-
     <label>Age</label>
     <input type="number" name="Age" required>
-
     <label>Gender</label>
     <select name="Gender" required>
       <option value="">Select Gender</option>
@@ -79,16 +77,12 @@
       <option>Female</option>
       <option>Other</option>
     </select>
-
     <label>WhatsApp Number</label>
     <input type="tel" name="Phone" required>
-
     <label>Email</label>
     <input type="email" name="Email" required>
-
     <label>Primary Complaint / Issue</label>
     <textarea name="Problem" rows="3" required></textarea>
-
     <label>Preferred Consultation Day</label>
     <select name="ConsultationDay" required>
       <option value="">Select Day</option>
@@ -99,7 +93,6 @@
       <option>Friday</option>
       <option>Saturday</option>
     </select>
-
     <label>Preferred Time Slot</label>
     <select name="PreferredTime" required>
       <option value="">Select Time Slot</option>
@@ -107,15 +100,12 @@
       <option>2PM – 4PM</option>
       <option>5PM – 9PM</option>
     </select>
-
     <label>Preferred Exact Time (Optional)</label>
     <input type="text" name="PreferredExactTime" placeholder="e.g., 6:15 PM" />
-
     <label>
       <input type="checkbox" name="Consent" value="Yes" required />
       I consent to communication via WhatsApp and Email.
     </label>
-
     <button type="submit">Submit</button>
   </form>
 
@@ -138,28 +128,31 @@
       button.innerText = "Submitting...";
 
       const formData = new FormData(form);
-      const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
+      const jsonObject = Object.fromEntries(formData.entries());
 
       fetch(scriptURL, {
         method: 'POST',
-        body: jsonData,
-        headers: { 'Content-Type': 'application/json' }
+        body: JSON.stringify(jsonObject),
+        headers: {
+          'Content-Type': 'application/json'
+        }
       })
-      .then(response => {
+      .then(response => response.json())
+      .then(res => {
         button.disabled = false;
         button.innerText = "Submit";
-        if (response.ok) {
+        if (res.status === "ok") {
           form.reset();
           modal.style.display = 'block';
         } else {
-          alert("❌ Submission failed. Please try again.");
+          alert("❌ Submission failed: " + (res.message || "Try again."));
         }
       })
-      .catch(error => {
+      .catch(err => {
         button.disabled = false;
         button.innerText = "Submit";
         alert("❌ Submission failed. Check your connection.");
-        console.error('Error:', error);
+        console.error(err);
       });
     });
   </script>
