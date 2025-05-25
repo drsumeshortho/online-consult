@@ -1,64 +1,168 @@
-// ✅ OrthoCure Code.gs – Auto-sync with CRM Enabled
-function doPost(e) {
-  try {
-    const data = JSON.parse(e.postData.contents);
-
-    const htmlSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("HTML Submissions");
-    const crmSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Patient CRM");
-
-    const row = [
-      new Date(),
-      data.Name || "",
-      data.Age || "",
-      data.Gender || "",
-      data.Phone || "",
-      data.Email || "",
-      data.Problem || "",
-      data.ConsultationDay || "",
-      data.PreferredTime || "",
-      data.PreferredExactTime || "",
-      `https://wa.me/91${data.Phone}?text=Hi%20${encodeURIComponent(data.Name)},%20this%20is%20Dr.%20Sumesh%20from%20OrthoCure.`,
-      data.Consent || ""
-    ];
-    htmlSheet.appendRow(row);
-
-    // ✅ Auto-sync with CRM
-    const crmData = crmSheet.getDataRange().getValues();
-    let found = false;
-    for (let i = 1; i < crmData.length; i++) {
-      if (crmData[i][3] == data.Phone) {
-        crmSheet.getRange(i + 1, 6).setValue(new Date()); // Update Last Visit
-        crmSheet.getRange(i + 1, 7).setValue(new Date()); // Update Last Updated
-        found = true;
-        break;
-      }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Online Consultation | OrthoCure Clinic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
     }
-
-    if (!found) {
-      crmSheet.appendRow([
-        data.Name || "",
-        data.Age || "",
-        data.Gender || "",
-        data.Phone || "",
-        data.Email || "",
-        new Date(), // First Visit
-        new Date(), // Last Updated
-        data.Problem || "",
-        1,
-        "₹0"
-      ]);
+    .branding {
+      text-align: center;
+      margin-bottom: 25px;
     }
+    .branding img {
+      width: 110px;
+      height: 110px;
+      border-radius: 60px;
+      border: 3px solid #0077b6;
+      object-fit: cover;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      background-color: #0077b6;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    #successModal {
+      display: none;
+      background: #e8f9e9;
+      border-left: 6px solid #2ecc71;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 30px auto;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="branding">
+    <img src="dp.jpg" alt="Dr. Sumesh Subramanian" />
+    <h2>Dr. Sumesh Subramanian</h2>
+    <p><strong>MS Ortho, Fellowship in Arthroplasty</strong></p>
+    <h3>OrthoCure Bone & Joint Speciality Clinic</h3>
+    <p><i>Start Healing. Stay Moving.</i></p>
+  </div>
 
-    return ContentService.createTextOutput(JSON.stringify({ status: "ok" }))
-      .setMimeType(ContentService.MimeType.JSON)
-      .setHeader("Access-Control-Allow-Origin", "*")
-      .setHeader("Access-Control-Allow-Methods", "POST")
-      .setHeader("Access-Control-Allow-Headers", "Content-Type");
-  } catch (err) {
-    const htmlSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("HTML Submissions");
-    htmlSheet.appendRow(["ERROR", new Date(), err.message]);
-    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.message }))
-      .setMimeType(ContentService.MimeType.JSON)
-      .setHeader("Access-Control-Allow-Origin", "*");
-  }
-}
+  <form id="consultForm">
+    <label>Full Name</label>
+    <input type="text" name="Name" required>
+
+    <label>Age</label>
+    <input type="number" name="Age" required>
+
+    <label>Gender</label>
+    <select name="Gender" required>
+      <option value="">Select Gender</option>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+    </select>
+
+    <label>WhatsApp Number</label>
+    <input type="tel" name="Phone" required>
+
+    <label>Email</label>
+    <input type="email" name="Email" required>
+
+    <label>Primary Complaint / Issue</label>
+    <textarea name="Problem" rows="3" required></textarea>
+
+    <label>Preferred Consultation Day</label>
+    <select name="ConsultationDay" required>
+      <option value="">Select Day</option>
+      <option>Monday</option>
+      <option>Tuesday</option>
+      <option>Wednesday</option>
+      <option>Thursday</option>
+      <option>Friday</option>
+      <option>Saturday</option>
+    </select>
+
+    <label>Preferred Time Slot</label>
+    <select name="PreferredTime" required>
+      <option value="">Select Time Slot</option>
+      <option>10AM – 1PM</option>
+      <option>2PM – 4PM</option>
+      <option>5PM – 9PM</option>
+    </select>
+
+    <label>Preferred Exact Time (Optional)</label>
+    <input type="text" name="PreferredExactTime" placeholder="e.g., 6:15 PM" />
+
+    <label>
+      <input type="checkbox" name="Consent" value="Yes" required />
+      I consent to communication via WhatsApp and Email.
+    </label>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <div id="successModal">
+    <h3 style="color: #2ecc71;">✅ Your Consultation Request Has Been Sent</h3>
+    <p>Thank you for contacting <strong>Dr. Sumesh Subramanian</strong> at <strong>OrthoCure Bone & Joint Speciality Clinic</strong>.</p>
+    <p>We will message you on WhatsApp shortly to confirm your consultation time.</p>
+    <p style="font-style: italic; color: #555;">Please wait for confirmation before making any payment.</p>
+  </div>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzj7nRt7itvk_IsFMAE1fpXK70tTRq_OKu1KnjfzSj_r6pXhb2F4wvHgpVPAXljr6cC/exec';
+    const form = document.getElementById('consultForm');
+    const modal = document.getElementById('successModal');
+    const button = form.querySelector("button");
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      button.disabled = true;
+      button.innerText = "Submitting...";
+
+      const formData = new FormData(form);
+      const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
+
+      fetch(scriptURL, {
+        method: 'POST',
+        body: jsonData,
+        headers: { 'Content-Type': 'application/json' }
+      })
+      .then(response => response.json())
+      .then(res => {
+        button.disabled = false;
+        button.innerText = "Submit";
+        if (res.status === "ok") {
+          form.reset();
+          modal.style.display = 'block';
+        } else {
+          alert("❌ Submission failed: " + (res.message || "Unknown error."));
+        }
+      })
+      .catch(error => {
+        button.disabled = false;
+        button.innerText = "Submit";
+        alert("❌ Submission failed. Check your connection.");
+        console.error(error);
+      });
+    });
+  </script>
+</body>
+</html>
