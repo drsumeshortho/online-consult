@@ -173,6 +173,42 @@
         alert("❌ Submission failed. Check your connection.");
       });
   });
+
+    const debugBox = document.getElementById('debugBox');
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  button.disabled = true;
+  button.innerText = "Submitting...";
+  debugBox.innerText = "⏳ Sending...";
+
+  const formData = new FormData(form);
+  const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
+
+  fetch(scriptURL, {
+    method: 'POST',
+    body: jsonData,
+    headers: { 'Content-Type': 'application/json' }
+  })
+  .then(res => res.json())
+  .then(res => {
+    button.disabled = false;
+    button.innerText = "Submit";
+    if (res.status === "ok") {
+      form.reset();
+      modal.style.display = 'block';
+      debugBox.innerText = "✅ Success!";
+    } else {
+      debugBox.innerText = "❌ Server Error: " + (res.message || "Unknown");
+    }
+  })
+  .catch(error => {
+    button.disabled = false;
+    button.innerText = "Submit";
+    debugBox.innerText = "❌ Network Error. Check internet or script URL.";
+  });
+});
+
 </script>
 </body>
 </html>
