@@ -127,44 +127,42 @@
   </div>
 
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzj7nRt7itvk_IsFMAE1fpXK70tTRq_OKu1KnjfzSj_r6pXhb2F4wvHgpVPAXljr6cC/exec';
-   const form = document.getElementById('consultForm');
-const modal = document.getElementById('successModal');
-const button = form.querySelector("button");
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxD5Qd4_ObYac1h8Lrm5fIyrdnk6Aa_jcipm5a3o02vPJIBTAbXbc1cudjGZbgFPrzE/exec'; // Replace with your actual deployed Web App URL
+    const form = document.getElementById('consultForm');
+    const modal = document.getElementById('successModal');
+    const button = form.querySelector("button");
 
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  button.disabled = true;
-  button.innerText = "Submitting...";
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      button.disabled = true;
+      button.innerText = "Submitting...";
 
-  const formData = new FormData(form);
-  const jsonObject = Object.fromEntries(formData.entries());
+      const formData = new FormData(form);
+      const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
 
-  fetch("https://script.google.com/macros/s/AKfycbzj7nRt7itvk_IsFMAE1fpXK70tTRq_OKu1KnjfzSj_r6pXhb2F4wvHgpVPAXljr6cC/exec", {
-    method: "POST",
-    body: JSON.stringify(jsonObject),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-  .then(res => res.json())
-  .then(data => {
-    button.disabled = false;
-    button.innerText = "Submit";
-    if (data.status === "ok") {
-      form.reset();
-      modal.style.display = 'block';
-    } else {
-      alert("❌ Submission failed: " + data.message);
-    }
-  })
-  .catch(err => {
-    console.error(err);
-    button.disabled = false;
-    button.innerText = "Submit";
-    alert("❌ Submission failed. Check your connection.");
-  });
-});
+      fetch(scriptURL, {
+        method: 'POST',
+        body: jsonData,
+        headers: { 'Content-Type': 'application/json' }
+      })
+      .then(response => response.json())
+      .then(res => {
+        button.disabled = false;
+        button.innerText = "Submit";
+        if (res.status === "ok") {
+          form.reset();
+          modal.style.display = 'block';
+        } else {
+          alert("❌ Submission failed: " + (res.message || "Unknown error."));
+        }
+      })
+      .catch(error => {
+        button.disabled = false;
+        button.innerText = "Submit";
+        alert("❌ Submission failed. Check your connection.");
+        console.error(error);
+      });
+    });
   </script>
 </body>
 </html>
