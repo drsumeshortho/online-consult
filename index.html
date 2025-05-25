@@ -148,31 +148,42 @@
   <script>
   const scriptURL = 'https://script.google.com/macros/s/AKfycbzj7nRt7itvk_IsFMAE1fpXK70tTRq_OKu1KnjfzSj_r6pXhb2F4wvHgpVPAXljr6cC/exec';
   const form = document.getElementById('consultForm');
-  const modal = document.getElementById('successModal');
-  const button = form.querySelector("button");
+const modal = document.getElementById('successModal');
+const button = form.querySelector("button");
+const debugBox = document.getElementById("debugBox");
 
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    button.disabled = true;
-    button.innerText = "Submitting...";
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  button.disabled = true;
+  button.innerText = "Submitting...";
+  debugBox.innerText = "⏳ Sending...";
 
-    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-      .then(response => {
-        button.disabled = false;
-        button.innerText = "Submit";
-        if (response.ok) {
-          form.reset();
-          modal.style.display = 'block';
-        } else {
-          alert("❌ Submission failed. Please try again.");
-        }
-      })
-      .catch(error => {
-        button.disabled = false;
-        button.innerText = "Submit";
-        alert("❌ Submission failed. Check your connection.");
-      });
+  const formData = new FormData(form);
+  const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
+
+  fetch(scriptURL, {
+    method: 'POST',
+    body: jsonData,
+    headers: { 'Content-Type': 'application/json' }
+  })
+  .then(res => res.json())
+  .then(res => {
+    button.disabled = false;
+    button.innerText = "Submit";
+    if (res.status === "ok") {
+      form.reset();
+      modal.style.display = 'block';
+      debugBox.innerText = "✅ Success! Data submitted.";
+    } else {
+      debugBox.innerText = "❌ Server Error: " + (res.message || "Unknown error");
+    }
+  })
+  .catch(error => {
+    button.disabled = false;
+    button.innerText = "Submit";
+    debugBox.innerText = "❌ Network Error. Check script URL or deployment.";
   });
+});
 
     const debugBox = document.getElementById('debugBox');
 
