@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,7 +128,7 @@
   </div>
 
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxD5Qd4_ObYac1h8Lrm5fIyrdnk6Aa_jcipm5a3o02vPJIBTAbXbc1cudjGZbgFPrzE/exec'; // Replace with your actual deployed Web App URL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbywu3AJEl4_79hdA2Pzif_QNRjJ9SQUSW6IIKCQ7ekPzfmSiuGXHn1_ZW3xiKiDSabK/exec';
     const form = document.getElementById('consultForm');
     const modal = document.getElementById('successModal');
     const button = form.querySelector("button");
@@ -145,7 +146,7 @@
         body: jsonData,
         headers: { 'Content-Type': 'application/json' }
       })
-      .then(response => response.json())
+      .then(res => res.json())
       .then(res => {
         button.disabled = false;
         button.innerText = "Submit";
