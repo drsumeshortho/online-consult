@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>OrthoCure Online Consultation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
@@ -20,17 +20,31 @@
       border-radius: 10px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
-    .logo {
-      text-align: center;
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
       margin-bottom: 20px;
     }
-    .logo img {
-      height: 60px;
+    .header img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #00778B;
     }
-    h2 {
-      text-align: center;
+    .header-info {
+      flex-grow: 1;
+    }
+    .header-info h2 {
+      margin: 0;
+      font-size: 20px;
       color: #00778B;
-      margin-bottom: 10px;
+    }
+    .header-info p {
+      margin: 3px 0 0 0;
+      font-size: 14px;
+      color: #444;
     }
     label {
       display: block;
@@ -84,8 +98,15 @@
   </style>
 </head>
 <body>
-  
-    <h2>Online Consultation Request</h2>
+  <div class="container">
+    <div class="header">
+      <img src="https://drsumeshortho.github.io/online-consult/assets/dp.jpg" alt="Dr Sumesh" />
+      <div class="header-info">
+        <h2>Dr. Sumesh Subramanian</h2>
+        <p>MBBS, MS Ortho, Fellowship in Arthroplasty</p>
+      </div>
+    </div>
+
     <form id="consultForm" action="https://script.google.com/macros/s/AKfycbyvRYAAcrHa2zofkl5p_BMHv8X5EhhhhdYNJfMnMc8K02VzhqYxKOCdukHbu1NKmlm1/exec" method="POST">
       <label for="name">Full Name*</label>
       <input type="text" id="name" name="name" required />
@@ -101,9 +122,6 @@
         <option>Other</option>
       </select>
 
-      <label for="phone">Phone Number*</label>
-      <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required />
-
       <label for="email">Email ID*</label>
       <input type="email" id="email" name="email" required />
 
@@ -113,8 +131,12 @@
       <label for="consultationDay">Consultation Day*</label>
       <select id="consultationDay" name="consultationDay" required>
         <option value="">Select</option>
-        <option>Today</option>
-        <option>Tomorrow</option>
+        <option>Monday</option>
+        <option>Tuesday</option>
+        <option>Wednesday</option>
+        <option>Thursday</option>
+        <option>Friday</option>
+        <option>Saturday</option>
       </select>
 
       <label for="preferredTime">Preferred Time Slot*</label>
@@ -142,7 +164,7 @@
     </form>
 
     <div id="successMsg" class="success" style="display:none;">
-      ✅ Consultation request submitted successfully. You’ll receive a WhatsApp message shortly.
+      ✅ Consultation submitted. You’ll receive a WhatsApp message shortly.
     </div>
   </div>
 
