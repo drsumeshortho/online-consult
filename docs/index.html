@@ -113,20 +113,38 @@
     </div>
   </form>
 
-  <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbyvRYAACrhHa2zofkI5p_BMHv8XSEhhhhdYNJfMnMc8K02VzhqYxkOCdukHbu1NKm1mI/exec";
-    const form = document.getElementById("consultForm");
-    const successMessage = document.getElementById("successMessage");
+<script>
+document.querySelector("form").addEventListener("submit", async function(e) {
+  e.preventDefault();
 
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      fetch(scriptURL, { method: "POST", body: new FormData(form) })
-        .then(() => {
-          successMessage.style.display = "block";
-          form.reset();
-        })
-        .catch((error) => alert("Error! " + error.message));
+  const data = {
+    name: document.getElementById("name").value,
+    age: document.getElementById("age").value,
+    gender: document.getElementById("gender").value,
+    phone: document.getElementById("phone").value,
+    email: document.getElementById("email").value,
+    problem: document.getElementById("problem").value,
+    consultationDay: document.getElementById("consultationDay").value,
+    preferredTime: document.getElementById("preferredTime").value,
+    preferredExactTime: document.getElementById("preferredExactTime").value,
+    whatsapp: document.getElementById("whatsapp").value,
+    consent: document.getElementById("consent").checked ? "Yes" : "No"
+  };
+
+  try {
+    const res = await fetch("https://script.google.com/macros/s/YOUR_DEPLOYED_SCRIPT_ID/exec", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" }
     });
-  </script>
+
+    const result = await res.json();
+    alert("✅ Submission successful!");
+  } catch (err) {
+    alert("❌ Submission failed. Please try again.");
+  }
+});
+</script>
+
 </body>
 </html>
