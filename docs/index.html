@@ -86,19 +86,20 @@
     .checkbox input {
       margin-right: 8px;
       transform: scale(1.2);
-    }
-    .success {
-      text-align: center;
-      margin-top: 20px;
-      color: green;
-      font-weight: 600;
-    }
-    @media (max-width: 600px) {
-      .container {
-        margin: 20px 10px;
-        padding: 20px;
-      }
-    }
+   .success-box {
+  background-color: #e6f8f8;
+  border: 1px solid #b0e0e6;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 25px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.6s ease-in-out;
+  }
+  @keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+  }
+
   </style>
 </head>
 <body>
@@ -169,10 +170,15 @@
       <button type="submit">Submit Consultation Request</button>
     </form>
 
-    <div id="successMsg" class="success" style="display:none;">
-      ✅ Consultation submitted. You’ll receive a WhatsApp message shortly.
-    </div>
+    <div id="successMsg" class="success-box" style="display: none;">
+  <div style="text-align: center;">
+    <img src="https://img.icons8.com/color/96/000000/checked--v2.png" alt="Success" width="64" height="64" />
+    <h3 style="color: #00778B;">Thank you for trusting OrthoCure!</h3>
+    <p>Your appointment request has been received successfully.</p>
+    <p><strong>Dr. Sumesh Subramanian</strong> will get in touch with you shortly via WhatsApp.</p>
   </div>
+</div>
+
 
   <script>
     const form = document.getElementById('consultForm');
@@ -188,6 +194,7 @@
         if (response.ok) {
           form.reset();
           successMsg.style.display = 'block';
+          successMsg.scrollIntoView({ behavior: 'smooth' });
         } else {
           alert("❌ Submission failed. Please try again.");
         }
