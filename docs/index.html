@@ -2,39 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Online Consultation | OrthoCure Clinic</title>
+  <title>OrthoCure Online Consultation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
+      background-color: #f8f9fa;
+      color: #2c3e50;
       padding: 20px;
-      max-width: 600px;
-      margin: auto;
-    }
-    h1 {
-      text-align: center;
-      color: #0b5d69;
     }
     form {
-      display: flex;
-      flex-direction: column;
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    h2 {
+      text-align: center;
+      color: #00778B;
     }
     label {
-      margin-top: 10px;
+      display: block;
+      margin-top: 15px;
       font-weight: bold;
     }
     input, select, textarea {
+      width: 100%;
       padding: 10px;
       margin-top: 5px;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 4px;
+      box-sizing: border-box;
     }
     button {
+      width: 100%;
       margin-top: 20px;
       padding: 12px;
-      background-color: #007d8a;
+      background-color: #00778B;
       color: white;
       border: none;
       border-radius: 5px;
@@ -42,25 +48,25 @@
       cursor: pointer;
     }
     button:hover {
-      background-color: #005e68;
+      background-color: #005f6e;
     }
     .success {
+      text-align: center;
       margin-top: 20px;
       color: green;
-      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h1>Online Consultation – OrthoCure</h1>
+  <h2>Request Consultation – OrthoCure</h2>
   <form id="consultForm">
-    <label for="name">Full Name</label>
+    <label for="name">Name*</label>
     <input type="text" id="name" name="name" required />
 
-    <label for="age">Age</label>
+    <label for="age">Age*</label>
     <input type="number" id="age" name="age" required />
 
-    <label for="gender">Gender</label>
+    <label for="gender">Gender*</label>
     <select id="gender" name="gender" required>
       <option value="">Select</option>
       <option>Male</option>
@@ -68,81 +74,71 @@
       <option>Other</option>
     </select>
 
-    <label for="phone">Phone Number</label>
-    <select id="phone" name="phone" required>
+    <label for="phone">Phone*</label>
+    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required />
 
-    <label for="email">Email ID</label>
+    <label for="email">Email*</label>
     <input type="email" id="email" name="email" required />
 
-    <label for="problem">Describe Your Problem</label>
-    <textarea type="problem" id="problem" name="problem" rows="3" required></textarea>
+    <label for="problem">Describe Your Problem*</label>
+    <textarea id="problem" name="problem" rows="3" required></textarea>
 
-    <label for="consultationDay">Preferred Day</label>
+    <label for="consultationDay">Consultation Day*</label>
     <select id="consultationDay" name="consultationDay" required>
       <option value="">Select</option>
-      <option>Monday</option>
-      <option>Tuesday</option>
-      <option>Wednesday</option>
-      <option>Thursday</option>
-      <option>Friday</option>
-      <option>Saturday</option>
+      <option>Today</option>
+      <option>Tomorrow</option>
     </select>
 
-    <label for="preferredTime">Preferred Time Slot</label>
-    <select type="text" id="preferredTime" name="preferredTime" required>
+    <label for="preferredTime">Preferred Time Slot*</label>
+    <select id="preferredTime" name="preferredTime" required>
       <option value="">Select</option>
-      <option>10AM – 1PM</option>
-      <option>2PM – 4PM</option>
-      <option>5PM – 9PM</option>
+      <option>10AM–1PM</option>
+      <option>2PM–4PM</option>
+      <option>5PM–9PM</option>
     </select>
 
-    <label for="preferredExactTime">Optional: Exact Preferred Time</label>
+    <label for="preferredExactTime">Preferred Exact Time (optional)</label>
     <input type="text" id="preferredExactTime" name="preferredExactTime" />
 
+    <label for="whatsapp">WhatsApp Number*</label>
+    <input type="tel" id="whatsapp" name="whatsapp" pattern="[0-9]{10}" required />
 
     <label>
       <input type="checkbox" id="consent" name="consent" value="Yes" required />
-      I agree that this consultation does not replace a physical examination and is not for emergencies.
+      I agree that this is a teleconsultation and not a substitute for emergency care.
     </label>
 
     <button type="submit">Submit Consultation Request</button>
-    <div class="success" id="successMessage" style="display:none;">
-      ✅ Consultation submitted. You'll receive a WhatsApp message shortly.
-    </div>
   </form>
 
-<script>
-document.querySelector("form").addEventListener("submit", async function(e) {
-  e.preventDefault();
+  <div id="successMsg" class="success" style="display:none;">
+    ✅ Consultation submitted. You’ll receive a WhatsApp message shortly.
+  </div>
 
-  const data = {
-    name: document.getElementById("name").value,
-    age: document.getElementById("age").value,
-    gender: document.getElementById("gender").value,
-    phone: document.getElementById("phone").value,
-    email: document.getElementById("email").value,
-    problem: document.getElementById("problem").value,
-    consultationDay: document.getElementById("consultationDay").value,
-    preferredTime: document.getElementById("preferredTime").value,
-    preferredExactTime: document.getElementById("preferredExactTime").value,
-    whatsapp: document.getElementById("whatsapp").value,
-    consent: document.getElementById("consent").checked ? "Yes" : "No"
-  };
+  <script>
+    const form = document.getElementById('consultForm');
+    const successMsg = document.getElementById('successMsg');
+    const endpoint = "https://script.google.com/macros/s/AKfycbyvRYAAcrHa2zofkl5p_BMHv8X5EhhhhdYNJfMnMc8K02VzhqYxKOCdukHbu1NKmlm1/exec";
 
-  try {
-    const res = await fetch("https://script.google.com/macros/s/AKfycbyvRYAAcrHa2zofkl5p_BMHv8X5EhhhhdYNJfMnMc8K02VzhqYxKOCdukHbu1NKmlm1/exec", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" }
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          body: data
+        });
+        if (response.ok) {
+          form.reset();
+          successMsg.style.display = 'block';
+        } else {
+          alert("❌ Error submitting form. Please try again.");
+        }
+      } catch (error) {
+        alert("❌ Submission failed. Please check your connection.");
+      }
     });
-
-    const result = await res.json();
-    alert("✅ Submission successful!");
-  } catch (err) {
-    alert("❌ Submission failed. Please try again.");
-  }
-});
-</script>
-
+  </script>
 </body>
 </html>
