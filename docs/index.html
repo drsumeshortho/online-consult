@@ -1,67 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>OrthoCure Online Consultation</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Online Consultation | OrthoCure Clinic</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f8f9fa;
-      color: #2c3e50;
+      background-color: #f9f9f9;
+      color: #333;
       padding: 20px;
-    }
-    form {
       max-width: 600px;
       margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
     }
-    h2 {
+    h1 {
       text-align: center;
-      color: #00778B;
+      color: #0b5d69;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
     }
     label {
-      display: block;
-      margin-top: 15px;
+      margin-top: 10px;
       font-weight: bold;
     }
     input, select, textarea {
-      width: 100%;
       padding: 10px;
       margin-top: 5px;
       border: 1px solid #ccc;
-      border-radius: 4px;
+      border-radius: 5px;
     }
     button {
-      width: 100%;
       margin-top: 20px;
       padding: 12px;
-      background-color: #00778B;
+      background-color: #007d8a;
       color: white;
       border: none;
       border-radius: 5px;
       font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005e68;
     }
     .success {
-      text-align: center;
       margin-top: 20px;
       color: green;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h2>Request Consultation – OrthoCure</h2>
-  <form id="consultForm" action="https://script.google.com/macros/s/AKfycbyvRYAAcrHa2zofkl5p_BMHv8X5EhhhhdYNJfMnMc8K02VzhqYxKOCdukHbu1NKmlm1/exec" method="POST">
-    <label>Name*</label>
+  <h1>Online Consultation – OrthoCure</h1>
+  <form id="consultForm">
+    <label for="name">Full Name</label>
     <input type="text" name="name" required />
 
-    <label>Age*</label>
+    <label for="age">Age</label>
     <input type="number" name="age" required />
 
-    <label>Gender*</label>
+    <label for="gender">Gender</label>
     <select name="gender" required>
       <option value="">Select</option>
       <option>Male</option>
@@ -69,66 +68,64 @@
       <option>Other</option>
     </select>
 
-    <label>Phone*</label>
-    <input type="tel" name="phone" pattern="[0-9]{10}" required />
+    <label for="phone">Phone Number</label>
+    <input type="text" name="phone" required />
 
-    <label>Email*</label>
+    <label for="email">Email ID</label>
     <input type="email" name="email" required />
 
-    <label>Describe Your Problem*</label>
+    <label for="problem">Describe Your Problem</label>
     <textarea name="problem" rows="3" required></textarea>
 
-    <label>Consultation Day*</label>
+    <label for="consultationDay">Preferred Day</label>
     <select name="consultationDay" required>
       <option value="">Select</option>
-      <option>Today</option>
-      <option>Tomorrow</option>
+      <option>Monday</option>
+      <option>Tuesday</option>
+      <option>Wednesday</option>
+      <option>Thursday</option>
+      <option>Friday</option>
+      <option>Saturday</option>
     </select>
 
-    <label>Preferred Time Slot*</label>
+    <label for="preferredTime">Preferred Time Slot</label>
     <select name="preferredTime" required>
       <option value="">Select</option>
-      <option>10AM–1PM</option>
-      <option>2PM–4PM</option>
-      <option>5PM–9PM</option>
+      <option>10AM – 1PM</option>
+      <option>2PM – 4PM</option>
+      <option>5PM – 9PM</option>
     </select>
 
-    <label>Preferred Exact Time (optional)</label>
+    <label for="preferredExactTime">Optional: Exact Preferred Time</label>
     <input type="text" name="preferredExactTime" />
 
-    <label>WhatsApp Number*</label>
-    <input type="tel" name="whatsapp" pattern="[0-9]{10}" required />
+    <label for="whatsappLink">WhatsApp Number</label>
+    <input type="text" name="whatsappLink" placeholder="e.g. 9876543210" required />
 
     <label>
       <input type="checkbox" name="consent" value="Yes" required />
-      I agree that this is a teleconsultation and not a substitute for emergency care.
+      I agree that this consultation does not replace a physical examination and is not for emergencies.
     </label>
 
     <button type="submit">Submit Consultation Request</button>
+    <div class="success" id="successMessage" style="display:none;">
+      ✅ Consultation submitted. You'll receive a WhatsApp message shortly.
+    </div>
   </form>
 
-  <div id="successMsg" class="success" style="display:none;">
-    ✅ Consultation submitted. You’ll receive a WhatsApp message shortly.
-  </div>
-
   <script>
-    const form = document.getElementById('consultForm');
-    const successMsg = document.getElementById('successMsg');
+    const scriptURL = "https://script.google.com/macros/s/AKfycbyvRYAACrhHa2zofkI5p_BMHv8XSEhhhhdYNJfMnMc8K02VzhqYxkOCdukHbu1NKm1mI/exec";
+    const form = document.getElementById("consultForm");
+    const successMessage = document.getElementById("successMessage");
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
-      const data = new FormData(form);
-      fetch(form.action, {
-        method: 'POST',
-        body: data
-      }).then(response => {
-        if (response.ok) {
+      fetch(scriptURL, { method: "POST", body: new FormData(form) })
+        .then(() => {
+          successMessage.style.display = "block";
           form.reset();
-          successMsg.style.display = 'block';
-        }
-      }).catch(() => {
-        alert("❌ Error submitting form. Try again later.");
-      });
+        })
+        .catch((error) => alert("Error! " + error.message));
     });
   </script>
 </body>
