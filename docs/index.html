@@ -99,11 +99,11 @@
     <label for="whatsapp">WhatsApp Number*</label>
     <input type="tel" name="whatsapp" pattern="[0-9]{10}" required>
 
-   <label for="consent">Consent*</label>
-<select name="consent" required>
-  <option value="">Select</option>
-  <option value="Yes">I Agree to Terms</option>
-</select>
+   <label>
+  <input type="checkbox" name="consent" value="Yes" required>
+  I agree that this is a teleconsultation and not a substitute for emergency care.
+</label>
+
 
     <button type="submit">Submit Consultation Request</button>
   </form>
