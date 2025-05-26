@@ -55,13 +55,13 @@
   <h1>Online Consultation – OrthoCure</h1>
   <form id="consultForm">
     <label for="name">Full Name</label>
-    <input type="text" name="name" required />
+    <input type="text" id="name" name="name" required />
 
     <label for="age">Age</label>
-    <input type="number" name="age" required />
+    <input type="number" id="age" name="age" required />
 
     <label for="gender">Gender</label>
-    <select name="gender" required>
+    <select id="gender" name="gender" required>
       <option value="">Select</option>
       <option>Male</option>
       <option>Female</option>
@@ -69,16 +69,16 @@
     </select>
 
     <label for="phone">Phone Number</label>
-    <input type="text" name="phone" required />
+    <select id="gender" name="gender" required>
 
     <label for="email">Email ID</label>
-    <input type="email" name="email" required />
+    <input type="email" id="email" name="email" required />
 
     <label for="problem">Describe Your Problem</label>
-    <textarea name="problem" rows="3" required></textarea>
+    <textarea type="problem" id="problem" name="problem" rows="3" required></textarea>
 
     <label for="consultationDay">Preferred Day</label>
-    <select name="consultationDay" required>
+    <select id="consultationDay" name="consultationDay" required>
       <option value="">Select</option>
       <option>Monday</option>
       <option>Tuesday</option>
@@ -89,7 +89,7 @@
     </select>
 
     <label for="preferredTime">Preferred Time Slot</label>
-    <select name="preferredTime" required>
+    <select type="text" id="preferredTime" name="preferredTime" required>
       <option value="">Select</option>
       <option>10AM – 1PM</option>
       <option>2PM – 4PM</option>
@@ -97,13 +97,11 @@
     </select>
 
     <label for="preferredExactTime">Optional: Exact Preferred Time</label>
-    <input type="text" name="preferredExactTime" />
+    <input type="text" id="preferredExactTime" name="preferredExactTime" />
 
-    <label for="whatsappLink">WhatsApp Number</label>
-    <input type="text" name="whatsappLink" placeholder="e.g. 9876543210" required />
 
     <label>
-      <input type="checkbox" name="consent" value="Yes" required />
+      <input type="checkbox" id="consent" name="consent" value="Yes" required />
       I agree that this consultation does not replace a physical examination and is not for emergencies.
     </label>
 
@@ -132,7 +130,7 @@ document.querySelector("form").addEventListener("submit", async function(e) {
   };
 
   try {
-    const res = await fetch("https://script.google.com/macros/s/YOUR_DEPLOYED_SCRIPT_ID/exec", {
+    const res = await fetch("https://script.google.com/macros/s/AKfycbyvRYAAcrHa2zofkl5p_BMHv8X5EhhhhdYNJfMnMc8K02VzhqYxKOCdukHbu1NKmlm1/exec", {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" }
