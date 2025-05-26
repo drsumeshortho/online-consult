@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title><h2>Online Consultation Request</h2></title>
+  <title>Book Online Consultation | Dr. Sumesh Subramanian – OrthoCure Clinic</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
@@ -45,6 +45,10 @@
       margin: 3px 0 0 0;
       font-size: 14px;
       color: #444;
+    }
+    h1 {
+      font-size: 20px;
+      margin-bottom: 20px;
     }
     label {
       display: block;
@@ -100,17 +104,14 @@
 <body>
   <div class="container">
     <div class="header">
-      <img src="assets/dp.jpg" alt="Dr Sumesh" />
-
+      <img src="assets/dp.jpg" alt="Dr Sumesh Subramanian" onerror="this.src='https://via.placeholder.com/64'" />
       <div class="header-info">
         <h2>Dr. Sumesh Subramanian</h2>
         <p>MBBS, MS Ortho, Fellowship in Arthroplasty</p>
       </div>
     </div>
-    <h2 style="text-align:center; margin-top: 10px; color: #00778B;">
-  Online Consultation Appointment
-</h2>
 
+    <h1>Online Consultation Appointment</h1>
 
     <form id="consultForm" action="https://script.google.com/macros/s/AKfycbyvRYAAcrHa2zofkl5p_BMHv8X5EhhhhdYNJfMnMc8K02VzhqYxKOCdukHbu1NKmlm1/exec" method="POST">
       <label for="name">Full Name*</label>
@@ -161,7 +162,7 @@
       <div class="checkbox">
         <label>
           <input type="checkbox" name="consent" value="Yes" required />
-          I agree that this is a teleconsultation and not a substitute for emergency care.
+          I understand that this is a teleconsultation and does not replace a physical examination or emergency care.
         </label>
       </div>
 
