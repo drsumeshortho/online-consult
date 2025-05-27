@@ -128,10 +128,10 @@
       </select>
 
       <label for="phone">WhatsApp Number</label>
-      <input type="tel" id="phone" name="phone" required>
+      <input type="tel" id="phone" name="whatsapp" required>
 
       <label for="issue">Primary Complaint / Issue</label>
-      <textarea id="issue" name="issue" required></textarea>
+      <textarea id="issue" name="problem" required></textarea>
 
       <label for="day">Preferred Day</label>
       <select id="day" name="day" required>
@@ -159,9 +159,10 @@
       <input type="email" id="email" name="email" required>
 
       <label class="consent-label">
-        <input type="checkbox" required> I agree to the terms of online consultation and consent to share my information.
+        <input type="checkbox" name="consent" value="Yes" required> I agree to the terms of online consultation and consent to share my information.
       </label>
-
+      
+<input type="hidden" name="consentNo" value="1111111111">
       <button type="submit">Submit Consultation Request</button>
       <p class="disclaimer">This form complies with the Telemedicine Practice Guidelines, Govt. of India.</p>
     </form>
