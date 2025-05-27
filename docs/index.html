@@ -1,230 +1,120 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Online Consultation | OrthoCure Clinic</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f0f4f8;
+      background-color: #f9f9f9;
       color: #2c3e50;
       margin: 0;
       padding: 0;
     }
-    header, .container, .confirmation {
-      max-width: 720px;
-      margin: 30px auto;
-      padding: 20px;
-    }
     header {
+      display: flex;
+      align-items: center;
+      padding: 20px;
       background-color: #ffffff;
-      text-align: center;
-      padding: 30px 20px;
       border-bottom: 1px solid #ddd;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     header img {
       height: 100px;
-      border-radius: 50%;
-      margin-bottom: 10px;
-    }
-    header h2 {
-      margin: 5px 0 0;
-      font-size: 1.5rem;
+      border-radius: 8px;
+      margin-right: 20px;
     }
     .tagline {
-      font-size: 14px;
-      color: #888;
-      margin-top: 5px;
+      font-size: 18px;
+      color: #555;
     }
-    form {
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
       background: #ffffff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
     }
-    form h3 {
-      margin-top: 0;
-      font-size: 1.2rem;
-      color: #0e4a6e;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 10px;
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-align: center;
     }
     label {
-      font-weight: 600;
       display: block;
-      margin-top: 18px;
+      margin-top: 15px;
+      font-weight: 600;
     }
     input, select, textarea {
       width: 100%;
-      padding: 12px;
-      margin-top: 6px;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
       border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 15px;
-      transition: border-color 0.3s ease;
-    }
-    input:focus, select:focus, textarea:focus {
-      border-color: #0e4a6e;
-      outline: none;
     }
     button {
-      margin-top: 25px;
+      margin-top: 20px;
       width: 100%;
-      background-color: #0e4a6e;
+      padding: 12px;
+      background-color: #2c3e50;
       color: white;
-      padding: 14px;
-      border: none;
-      font-size: 16px;
       font-weight: bold;
-      border-radius: 6px;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #09314b;
     }
     .disclaimer {
-      font-size: 13px;
+      font-size: 12px;
       color: #777;
       margin-top: 20px;
-      text-align: center;
-    }
-    .confirmation {
-      display: none;
-      background: #f0fff4;
-      border-left: 5px solid #2ecc71;
-      border-radius: 10px;
-      padding: 40px;
-      text-align: center;
-    }
-    .confirmation h3 {
-      margin-top: 0;
-      color: #2c3e50;
-      font-size: 22px;
-    }
-    .confirmation p {
-      color: #333;
-      font-size: 15px;
-      line-height: 1.6;
-    }
-    .consent-label input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      transform: scale(1.2);
-      margin-right: 10px;
-      vertical-align: middle;
-    }
-    .consent-label {
-      display: flex;
-      align-items: center;
-      margin-top: 20px;
-      font-weight: 500;
-      line-height: 1.4;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="dp.jpg" alt="Dr. Sumesh Subramanian" />
-    <h2>Dr. Sumesh Subramanian</h2>
-    <p class="tagline">OrthoCure Bone & Joint Speciality Clinic<br>Start Healing. Stay Moving.</p>
+    <img src="dp.jpg" alt="Dr. Sumesh Subramanian">
+    <div>
+      <h2>Dr. Sumesh Subramanian</h2>
+      <p class="tagline">OrthoCure Bone & Joint Speciality Clinic<br>Start Healing. Stay Moving.</p>
+    </div>
   </header>
 
   <div class="container">
-    <form id="consultForm" method="post">
-      <h3>Online Consultation Appointment Form</h3>
-
+    <h1>Book Your Online Consultation</h1>
+    <form action="https://docs.google.com/forms/d/e/1FAIpQLSchYzlQOZgEB_ndlBqTXhjR9REoNM7Wav80mru-WoTfPCmR4g/formResponse" method="post" target="_blank">
       <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" required>
+      <input type="text" id="name" name="entry.123456" required>
 
       <label for="age">Age</label>
-      <input type="number" id="age" name="age" required>
+      <input type="number" id="age" name="entry.654321" required>
 
       <label for="gender">Gender</label>
-      <select id="gender" name="gender" required>
-        <option value="">--Select Gender--</option>
+      <select id="gender" name="entry.112233">
         <option value="Male">Male</option>
         <option value="Female">Female</option>
         <option value="Other">Other</option>
       </select>
 
-      <label for="email">Email ID</label>
-      <input type="email" id="email" name="email" required>
+      <label for="phone">WhatsApp Number</label>
+      <input type="tel" id="phone" name="entry.445566" required>
 
-      <label for="whatsapp">WhatsApp Number</label>
-      <input type="tel" id="whatsapp" name="whatsapp" required>
+      <label for="issue">Primary Complaint / Issue</label>
+      <textarea id="issue" name="entry.778899" rows="4" required></textarea>
 
-      <label for="problem">Primary Complaint / Issue</label>
-      <textarea id="problem" name="problem" required></textarea>
-
-      <label for="consultationDay">Preferred Day</label>
-      <select id="consultationDay" name="consultationDay" required>
-        <option value="">--Select Day--</option>
-        <option value="Monday">Monday</option>
-        <option value="Tuesday">Tuesday</option>
-        <option value="Wednesday">Wednesday</option>
-        <option value="Thursday">Thursday</option>
-        <option value="Friday">Friday</option>
-        <option value="Saturday">Saturday</option>
-      </select>
-
-      <label for="preferredTime">Preferred Time Slot</label>
-      <select id="preferredTime" name="preferredTime" required>
-        <option value="">--Select Slot--</option>
+      <label for="slot">Preferred Time Slot</label>
+      <select id="slot" name="entry.991122">
         <option value="10AM - 1PM">10AM – 1PM</option>
         <option value="2PM - 4PM">2PM – 4PM</option>
         <option value="5PM - 9PM">5PM – 9PM</option>
       </select>
 
-      <label for="preferredExactTime">Preferred Time (Optional)</label>
-      <input type="text" id="preferredExactTime" name="preferredExactTime" placeholder="e.g. after 7PM">
-
-      <label for="consentRef">Consent Reference #</label>
-      <input type="text" id="consentRef" name="consentRef" required>
-
-      <label class="consent-label">
-        <input type="checkbox" name="consent" value="Yes" required>
-        I agree to the terms of online consultation and consent to share my information.
-      </label>
+      <label><input type="checkbox" required> I agree to the terms of online consultation and consent to share my information.</label>
 
       <button type="submit">Submit Consultation Request</button>
-      <p class="disclaimer">This form complies with the Telemedicine Practice Guidelines, Govt. of India.</p>
+      <p class="disclaimer">This form is secure and compliant with the Telemedicine Practice Guidelines, Govt. of India. No Schedule X or habit-forming drugs will be prescribed.</p>
     </form>
-
-    <div id="confirmationMessage" class="confirmation">
-      <h3>✅ Consultation Request Submitted</h3>
-      <p>Thank you! We've received your request.</p>
-      <p>Dr. Sumesh will confirm the appointment time on WhatsApp shortly.</p>
-      <p>Kindly wait for confirmation before proceeding to payment.</p>
-      <p class="disclaimer">OrthoCure Bone & Joint Speciality Clinic</p>
-    </div>
   </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const form = document.getElementById("consultForm");
-      const confirmation = document.getElementById("confirmationMessage");
-      const scriptURL = "https://script.google.com/macros/s/AKfycbz-7jTWPMgq8zMb3eGNGkJ3yK3T2HaZZgCdXNetm6TsigHtBHZr18TUjyU6UgK5IRI/exec";
-
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-          .then(response => {
-            if (response.ok) {
-              form.style.display = "none";
-              confirmation.style.display = "block";
-            } else {
-              alert("Something went wrong. Please try again.");
-            }
-          })
-          .catch(error => {
-            console.error("Error!", error.message);
-            alert("There was an error submitting your request.");
-          });
-      });
-    });
-  </script>
 </body>
 </html>
