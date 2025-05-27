@@ -2,71 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-<<<<<<< HEAD
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Online Consultation | OrthoCure Clinic</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f9f9f9;
+      background-color: #f0f4f8;
       color: #2c3e50;
-=======
-  <title>Online Consultation Appointment | OrthoCure Clinic</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fdfdfd;
->>>>>>> 7b4508e (🔁 Synced local changes before rebase)
       margin: 0;
       padding: 0;
-      color: #2c3e50;
     }
-<<<<<<< HEAD
     header, .container, .confirmation {
-      max-width: 700px;
+      max-width: 720px;
       margin: 30px auto;
       padding: 20px;
     }
     header {
-      background-color: #fff;
+      background-color: #ffffff;
       text-align: center;
+      padding: 30px 20px;
       border-bottom: 1px solid #ddd;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     header img {
-      height: 90px;
+      height: 100px;
+      border-radius: 50%;
       margin-bottom: 10px;
     }
     header h2 {
       margin: 5px 0 0;
+      font-size: 1.5rem;
     }
     .tagline {
       font-size: 14px;
-      color: #777;
+      color: #888;
+      margin-top: 5px;
     }
     form {
-      background: #fff;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.07);
     }
     label {
       font-weight: 600;
       display: block;
-      margin-top: 20px;
+      margin-top: 18px;
     }
     input, select, textarea {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin-top: 6px;
       border: 1px solid #ccc;
       border-radius: 6px;
-      font-size: 14px;
+      font-size: 15px;
+      transition: border-color 0.3s ease;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #0e4a6e;
+      outline: none;
     }
     button {
       margin-top: 25px;
       width: 100%;
-      background-color: #2c3e50;
+      background-color: #0e4a6e;
       color: white;
       padding: 14px;
       border: none;
@@ -74,6 +73,10 @@
       font-weight: bold;
       border-radius: 6px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #09314b;
     }
     .disclaimer {
       font-size: 13px;
@@ -83,79 +86,25 @@
     }
     .confirmation {
       display: none;
-      background: #e9fdf2;
+      background: #f0fff4;
       border-left: 5px solid #2ecc71;
-      border-radius: 8px;
-      padding: 30px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      padding: 40px;
+      text-align: center;
     }
     .confirmation h3 {
       margin-top: 0;
       color: #2c3e50;
+      font-size: 22px;
     }
     .confirmation p {
       color: #333;
       font-size: 15px;
       line-height: 1.6;
-=======
-
-    header {
-      text-align: center;
-      padding: 2rem 1rem 1rem;
-      background-color: #f4f7f8;
-      border-bottom: 1px solid #ddd;
-    }
-
-    header img {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 1rem;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 1.4rem;
-      color: #0e4a6e;
-    }
-
-    h2 {
-      margin: 0.2rem 0;
-      font-weight: 400;
-      font-size: 1rem;
-      color: #555;
-    }
-
-    .form-wrapper {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-
-    iframe {
-      width: 100%;
-      height: 1200px;
-      border: none;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      color: #777;
-    }
-
-    @media (max-width: 600px) {
-      iframe {
-        height: 1300px;
-      }
->>>>>>> 7b4508e (🔁 Synced local changes before rebase)
     }
   </style>
 </head>
 <body>
-<<<<<<< HEAD
   <header>
     <img src="dp.jpg" alt="Dr. Sumesh Subramanian" />
     <h2>Dr. Sumesh Subramanian</h2>
@@ -178,14 +127,14 @@
         <option value="Other">Other</option>
       </select>
 
-      <label for="whatsapp">WhatsApp Number</label>
-      <input type="tel" id="whatsapp" name="whatsapp" required>
+      <label for="phone">WhatsApp Number</label>
+      <input type="tel" id="phone" name="phone" required>
 
-      <label for="problem">Primary Complaint / Issue</label>
-      <textarea id="problem" name="problem" required></textarea>
+      <label for="issue">Primary Complaint / Issue</label>
+      <textarea id="issue" name="issue" required></textarea>
 
-      <label for="consultationDay">Preferred Day</label>
-      <select id="consultationDay" name="consultationDay" required>
+      <label for="day">Preferred Day</label>
+      <select id="day" name="day" required>
         <option value="">--Select Day--</option>
         <option value="Monday">Monday</option>
         <option value="Tuesday">Tuesday</option>
@@ -195,16 +144,16 @@
         <option value="Saturday">Saturday</option>
       </select>
 
-      <label for="preferredTime">Preferred Time Slot</label>
-      <select id="preferredTime" name="preferredTime" required>
+      <label for="slot">Preferred Time Slot</label>
+      <select id="slot" name="slot" required>
         <option value="">--Select Slot--</option>
         <option value="10AM - 1PM">10AM – 1PM</option>
         <option value="2PM - 4PM">2PM – 4PM</option>
         <option value="5PM - 9PM">5PM – 9PM</option>
       </select>
 
-      <label for="preferredExactTime">Preferred Time (Optional)</label>
-      <input type="text" id="preferredExactTime" name="preferredExactTime" placeholder="e.g. after 7PM">
+      <label for="exactTime">Preferred Time (Optional)</label>
+      <input type="text" id="exactTime" name="exactTime" placeholder="e.g. after 7PM">
 
       <label for="email">Your Email (for confirmation)</label>
       <input type="email" id="email" name="email" required>
@@ -219,9 +168,10 @@
 
     <div id="confirmationMessage" class="confirmation">
       <h3>✅ Thank You!</h3>
-      <p>Your consultation request has been received. Dr. Sumesh will confirm your time via WhatsApp shortly.</p>
-      <p>Once confirmed, you will receive payment details. Please wait for confirmation before making the ₹400 payment via UPI.</p>
-      <p class="disclaimer">OrthoCure Bone & Joint Speciality Clinic</p>
+      <p>Your consultation request has been submitted successfully.</p>
+      <p>You will be contacted shortly via WhatsApp to confirm your appointment time.</p>
+      <p>Once confirmed, the payment link will be shared with you. Kindly wait for confirmation before proceeding to payment.</p>
+      <p class="disclaimer">— OrthoCure Bone & Joint Speciality Clinic</p>
     </div>
   </div>
 
@@ -249,26 +199,5 @@
       });
     });
   </script>
-=======
-
-  <header>
-    <img src="dp.jpg" alt="Dr. Sumesh Subramanian" />
-    <h1>Dr. Sumesh Subramanian</h1>
-    <h2>MBBS, MS Orthopaedics</h2>
-    <h2>OrthoCure Bone & Joint Speciality Clinic</h2>
-    <h2 style="font-style: italic;">Start Healing. Stay Moving.</h2>
-  </header>
-
-  <div class="form-wrapper">
-    <!-- 🔁 Paste your Google Form embed link below -->
-    <iframe src="https://script.google.com/macros/s/AKfycbz-7jTWPMgq8zMb3eGNGkJ3yK3T2HaZZgCdXNetm6TsigHtBHZr18TUjyU6UgK5IRI/exec"></iframe>
-  </div>
-
-  <footer>
-    © 2025 Dr. Sumesh Subramanian | All rights reserved
-  </footer>
-
->>>>>>> 7b4508e (🔁 Synced local changes before rebase)
 </body>
 </html>
-
