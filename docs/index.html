@@ -127,14 +127,14 @@
         <option value="Other">Other</option>
       </select>
 
-      <label for="phone">WhatsApp Number</label>
-      <input type="tel" id="phone" name="whatsapp" required>
+      <label for="whatsapp">WhatsApp Number</label>
+      <input type="tel" id="whatsapp" name="whatsapp" required>
 
-      <label for="issue">Primary Complaint / Issue</label>
-      <textarea id="issue" name="problem" required></textarea>
+      <label for="problem">Primary Complaint / Issue</label>
+      <textarea id="problem" name="problem" required></textarea>
 
-      <label for="day">Preferred Day</label>
-      <select id="day" name="day" required>
+      <label for="consultationDay">Preferred Day</label>
+      <select id="consultationDay" name="consultationDay" required>
         <option value="">--Select Day--</option>
         <option value="Monday">Monday</option>
         <option value="Tuesday">Tuesday</option>
@@ -144,16 +144,16 @@
         <option value="Saturday">Saturday</option>
       </select>
 
-      <label for="slot">Preferred Time Slot</label>
-      <select id="slot" name="slot" required>
+      <label for="preferredTime">Preferred Time Slot</label>
+      <select id="preferredTime" name="preferredTime" required>
         <option value="">--Select Slot--</option>
         <option value="10AM - 1PM">10AM – 1PM</option>
         <option value="2PM - 4PM">2PM – 4PM</option>
         <option value="5PM - 9PM">5PM – 9PM</option>
       </select>
 
-      <label for="exactTime">Preferred Time (Optional)</label>
-      <input type="text" id="exactTime" name="exactTime" placeholder="e.g. after 7PM">
+      <label for="preferredExactTime">Preferred Time (Optional)</label>
+      <input type="text" id="preferredExactTime" name="preferredExactTime" placeholder="e.g. after 7PM">
 
       <label for="email">Your Email (for confirmation)</label>
       <input type="email" id="email" name="email" required>
@@ -161,8 +161,9 @@
       <label class="consent-label">
         <input type="checkbox" name="consent" value="Yes" required> I agree to the terms of online consultation and consent to share my information.
       </label>
-      
-<input type="hidden" name="consentNo" value="1111111111">
+
+      <input type="hidden" name="consentRef" value="1111111111">
+
       <button type="submit">Submit Consultation Request</button>
       <p class="disclaimer">This form complies with the Telemedicine Practice Guidelines, Govt. of India.</p>
     </form>
