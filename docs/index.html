@@ -44,6 +44,13 @@
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.07);
     }
+    form h3 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      color: #0e4a6e;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+    }
     label {
       font-weight: 600;
       display: block;
@@ -102,6 +109,20 @@
       font-size: 15px;
       line-height: 1.6;
     }
+    .consent-label input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      transform: scale(1.2);
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+    .consent-label {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      font-weight: 500;
+      line-height: 1.4;
+    }
   </style>
 </head>
 <body>
@@ -113,6 +134,8 @@
 
   <div class="container">
     <form id="consultForm" method="post">
+      <h3>Online Consultation Appointment Form</h3>
+
       <label for="name">Full Name</label>
       <input type="text" id="name" name="name" required>
 
@@ -126,6 +149,9 @@
         <option value="Female">Female</option>
         <option value="Other">Other</option>
       </select>
+
+      <label for="email">Email ID</label>
+      <input type="email" id="email" name="email" required>
 
       <label for="whatsapp">WhatsApp Number</label>
       <input type="tel" id="whatsapp" name="whatsapp" required>
@@ -155,25 +181,24 @@
       <label for="preferredExactTime">Preferred Time (Optional)</label>
       <input type="text" id="preferredExactTime" name="preferredExactTime" placeholder="e.g. after 7PM">
 
-      <label for="email">Your Email (for confirmation)</label>
-      <input type="email" id="email" name="email" required>
+      <label for="consentRef">Consent Reference #</label>
+      <input type="text" id="consentRef" name="consentRef" required>
 
       <label class="consent-label">
-        <input type="checkbox" name="consent" value="Yes" required> I agree to the terms of online consultation and consent to share my information.
+        <input type="checkbox" name="consent" value="Yes" required>
+        I agree to the terms of online consultation and consent to share my information.
       </label>
-
-      <input type="hidden" name="consentRef" value="1111111111">
 
       <button type="submit">Submit Consultation Request</button>
       <p class="disclaimer">This form complies with the Telemedicine Practice Guidelines, Govt. of India.</p>
     </form>
 
     <div id="confirmationMessage" class="confirmation">
-      <h3>✅ Thank You!</h3>
-      <p>Your consultation request has been submitted successfully.</p>
-      <p>You will be contacted shortly via WhatsApp to confirm your appointment time.</p>
-      <p>Once confirmed, the payment link will be shared with you. Kindly wait for confirmation before proceeding to payment.</p>
-      <p class="disclaimer">— OrthoCure Bone & Joint Speciality Clinic</p>
+      <h3>✅ Consultation Request Submitted</h3>
+      <p>Thank you! We've received your request.</p>
+      <p>Dr. Sumesh will confirm the appointment time on WhatsApp shortly.</p>
+      <p>Kindly wait for confirmation before proceeding to payment.</p>
+      <p class="disclaimer">OrthoCure Bone & Joint Speciality Clinic</p>
     </div>
   </div>
 
