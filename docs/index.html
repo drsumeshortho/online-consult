@@ -1,119 +1,165 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Online Consultation | OrthoCure Clinic</title>
+  <meta charset="UTF-8" />
+  <title>Online Consultation Appointment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 20px;
-  }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f9fb;
+      color: #2c3e50;
+    }
+
     header {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      padding: 20px;
+      justify-content: center;
+      text-align: center;
       background-color: #ffffff;
-      border-bottom: 1px solid #ddd;
+      padding: 30px 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      border-radius: 0 0 20px 20px;
     }
+
     header img {
       height: 100px;
-      border-radius: 8px;
-      margin-right: 20px;
+      border-radius: 10px;
+      margin-bottom: 15px;
     }
-    .tagline {
-      font-size: 18px;
+
+    header h2 {
+      font-size: 28px;
+      margin: 0;
+      font-weight: 600;
+      color: #1f3a93;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 16px;
       color: #555;
     }
-    .container {
-      max-width: 600px;
-      margin: 30px auto;
-      background: #ffffff;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+
+    main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
     }
-    h1 {
-      font-size: 24px;
-      margin-bottom: 20px;
+
+    form {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      padding: 30px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    h3 {
       text-align: center;
+      font-size: 22px;
+      color: #1a1a1a;
+      margin-bottom: 25px;
     }
+
     label {
       display: block;
-      margin-top: 15px;
+      margin-bottom: 6px;
       font-weight: 600;
     }
+
     input, select, textarea {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 5px;
+      padding: 10px 12px;
+      margin-bottom: 20px;
       border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
     }
+
     button {
-      margin-top: 20px;
       width: 100%;
-      padding: 12px;
-      background-color: #2c3e50;
+      background-color: #1f3a93;
       color: white;
-      font-weight: bold;
       border: none;
-      border-radius: 5px;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 6px;
       cursor: pointer;
     }
-    .disclaimer {
-      font-size: 12px;
-      color: #777;
-      margin-top: 20px;
+
+    button:hover {
+      background-color: #163080;
     }
   </style>
 </head>
 <body>
-  <header>
-  <img src="your-dp-url.png" alt="Dr. Sumesh Subramanian" style="height: 100px; border-radius: 8px;" />
-  <h2>Dr. Sumesh Subramanian</h2>
-  <p>OrthoCure Bone & Joint Speciality Clinic<br><em>Start Healing. Stay Moving.</em></p>
-</header>
 
-  <div class="container">
-    <h1>Book Your Online Consultation</h1>
-    <form action="https://docs.google.com/forms/d/e/1FAIpQLSchYzlQOZgEB_ndlBqTXhjR9REoNM7Wav80mru-WoTfPCmR4g/formResponse" method="post" target="_blank">
+  <header>
+    <img src="https://raw.githubusercontent.com/drsumeshortho/online-consult/main/dp.jpg" alt="Dr. Sumesh Subramanian">
+    <h2>Dr. Sumesh Subramanian</h2>
+    <p>OrthoCure Bone & Joint Speciality Clinic<br><em>Start Healing. Stay Moving.</em></p>
+  </header>
+
+  <main>
+    <form action="https://script.google.com/macros/s/AKfycbxEHp4Cs3mgU0Ci9zWOmCJttMCNfb7YRS--6OAdGHAVOlppkVsfY3OLXYHG_enOvVs/exec" method="POST">
+      <h3>Book Your Online Consultation</h3>
+
       <label for="name">Full Name</label>
-      <input type="text" id="name" name="entry.123456" required>
+      <input type="text" id="name" name="name" required />
 
       <label for="age">Age</label>
-      <input type="number" id="age" name="entry.654321" required>
+      <input type="number" id="age" name="age" required />
 
       <label for="gender">Gender</label>
-      <select id="gender" name="entry.112233">
+      <select id="gender" name="gender" required>
+        <option value="">-- Select --</option>
         <option value="Male">Male</option>
         <option value="Female">Female</option>
         <option value="Other">Other</option>
       </select>
 
-      <label for="phone">WhatsApp Number</label>
-      <input type="tel" id="phone" name="entry.445566" required>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required />
 
-      <label for="issue">Primary Complaint / Issue</label>
-      <textarea id="issue" name="entry.778899" rows="4" required></textarea>
-
-      <label for="slot">Preferred Time Slot</label>
-      <select id="slot" name="entry.991122">
-        <option value="10AM - 1PM">10AM – 1PM</option>
-        <option value="2PM - 4PM">2PM – 4PM</option>
-        <option value="5PM - 9PM">5PM – 9PM</option>
+      <label for="consultationDay">Consultation Day</label>
+      <select id="consultationDay" name="consultationDay" required>
+        <option value="">-- Select --</option>
+        <option value="Monday">Monday</option>
+        <option value="Tuesday">Tuesday</option>
+        <option value="Wednesday">Wednesday</option>
+        <option value="Thursday">Thursday</option>
+        <option value="Friday">Friday</option>
+        <option value="Saturday">Saturday</option>
       </select>
 
-      <label><input type="checkbox" required> I agree to the terms of online consultation and consent to share my information.</label>
+      <label for="preferredTime">Consultation Time Slot</label>
+      <select id="preferredTime" name="preferredTime" required>
+        <option value="">-- Select --</option>
+        <option value="10AM – 1PM">10AM – 1PM</option>
+        <option value="2PM – 4PM">2PM – 4PM</option>
+        <option value="5PM – 9PM">5PM – 9PM</option>
+      </select>
 
-      <button type="submit">Submit Consultation Request</button>
-      <p class="disclaimer">This form is secure and compliant with the Telemedicine Practice Guidelines, Govt. of India. No Schedule X or habit-forming drugs will be prescribed.</p>
+      <label for="preferredExactTime">Preferred Time (Optional)</label>
+      <input type="text" id="preferredExactTime" name="preferredExactTime" placeholder="E.g. 11:30 AM" />
+
+      <label for="whatsapp">WhatsApp Number</label>
+      <input type="tel" id="whatsapp" name="whatsapp" required />
+
+      <label for="problem">Brief About Your Problem</label>
+      <textarea id="problem" name="problem" rows="4" required></textarea>
+
+      <input type="hidden" name="consent" value="Yes" />
+
+      <button type="submit">Submit</button>
     </form>
-  </div>
+  </main>
+
 </body>
 </html>
