@@ -173,31 +173,30 @@
   </main>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const form = document.querySelector("form");
+    const form = document.getElementById("consultForm");
     const confirmation = document.getElementById("confirmationMessage");
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxzZ64J3TUM32j-Un7hf1PTeTf4lnc3PCAO65KQjpmXLPm_5YPhUdvR6Aoabzp6XG0/exec";
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const formData = new FormData(form);
-      fetch(form.action, {
+      fetch(scriptURL, {
         method: "POST",
-        body: formData
+        body: new FormData(form),
       })
-      .then(response => {
-        if (response.ok) {
-          form.style.display = "none";
-          confirmation.style.display = "block";
-        } else {
-          alert("Something went wrong. Please try again.");
-        }
+      .then(response => response.text()) // not .ok
+      .then(text => {
+        console.log("✅ Success:", text);
+        form.style.display = "none";
+        confirmation.style.display = "block";
       })
       .catch(error => {
-        console.error("Error:", error);
+        console.error("❌ Error!", error.message);
         alert("There was an error submitting your request.");
       });
     });
   });
 </script>
+
 </body>
 </html>
