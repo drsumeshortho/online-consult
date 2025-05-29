@@ -190,13 +190,17 @@
         body: new FormData(form),
       })
       .then(response => {
-  if (response.ok) {
-    form.style.display = "none";
-    confirmation.style.display = "block";
-  } else {
-    throw new Error("Submission failed. Please try again.");
-  }
-})
+        return response.text().then(text => {
+         if (response.ok) {
+           console.log("✅ Success:", text);
+          form.style.display = "none";
+          confirmation.style.display = "block";
+         } else {
+           throw new Error("⚠️ Script returned non-OK status: " + text);
+         }
+       });
+    })
+
 
       .catch(error => {
         console.error("❌ Error!", error.message);
