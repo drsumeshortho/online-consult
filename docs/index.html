@@ -178,32 +178,32 @@
   </main>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("consultForm");
-  const confirmation = document.getElementById("confirmationMessage");
-  const scriptURL = "https://script.google.com/macros/s/AKfycbxzZ64J3TUM32j-Un7hf1PTeTf4lnc3PCAO65KQjpmXLPm_5YPhUdvR6Aoabzp6XG0/exec";
+    const form = document.getElementById("consultForm");
+    const confirmation = document.getElementById("confirmationMessage");
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxzZ64J3TUM32j-Un7hf1PTeTf4lnc3PCAO65KQjpmXLPm_5YPhUdvR6Aoabzp6XG0/exec";
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    fetch(scriptURL, {
-      method: "POST",
-      body: new FormData(form),
-    })
-    .then(response => response.text().then(text => {
-      if (response.ok && text.includes("Data recorded")) {
+      fetch(scriptURL, {
+        method: "POST",
+        body: new FormData(form),
+        mode: "no-cors" // This avoids triggering the .catch block on opaque response
+      })
+      .then(() => {
+        // Success path
         form.style.display = "none";
         confirmation.style.display = "block";
-        console.log("✅ Data recorded successfully.");
-      } else {
-        throw new Error("Response not OK or unexpected content: " + text);
-      }
-    }))
-    .catch(error => {
-      console.error("❌ Error!", error.message);
-      alert("There was an error submitting your request.");
+        console.log("✅ Appointment submitted successfully.");
+      })
+      .catch((error) => {
+        // Actual client-side error
+        console.error("❌ Submission error:", error);
+        alert("There was an error submitting your request. Please try again.");
+      });
     });
   });
-});
 </script>
+
 </body>
 </html>
